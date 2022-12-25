@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="utf-8" />
+    <title>ウィキカレ!</title>
+    <script>
+function test(){
+  var a = document.documentElement;
+  var y = a.scrollHeight - a.clientHeight;
+  window.scroll({
+        top: y,
+        behavior: "smooth"
+    });
+}
+</script>
+
+
+<style><!--
+    table {
+        border-collapse: collapse;
+        font-size: 12px;
+    }
+    tr {
+        border-color: gray;
+        border-style: solid;
+        border-width: 1px 0;
+    }
+--></style>
+
+
+
+  </head>
+  <body>
+  <h1  style="font-family:Nico Moji;font-size:42px; font-weight:700; color:rgb(0, 0, 255);">ウィキカレンダー
+  </h1>
+  <input type="button" onclick="test();" value="最下部へ移動する">
+  
+   <p th:text="${new java.util.Date().toString()}"></p> 
+  
+<form action="/507" method="get" >
+<input type="submit" value="更新➡/507" /></form>
+ <!--/* <h1><a href="https://www.google.com/">google</a></h1> */-->
+ 
+ 
+ 
+   <!--/* 元ファイル残し。
+      <table border=’true’ >
+    
+      <tr>
+        <th>id</th>
+        <th>日付</th>
+        <th>開始時間</th>
+        <th>テーマ</th>
+        <th>内容</th>
+        <th>Link</th>
+
+      </tr>
+      <tr th:each="list : ${DbList}">
+        <td th:text="${list.id}"></td>
+        <td th:text="${list.dt}"></td>
+        <td th:text="${list.starttime}"></td>
+        <td th:text="${list.theme}"><br></td>
+        <td th:text="${list.content}"></td>
+        <td><a  th:href="@{${list.link}}"><div th:text="${list.link}" ></div></a></td> 
+    
+        
+      </tr>
+    </table>
+   */-->
+  
+  
+    <!--/*<table border=’true’ >
+    
+      <tr>
+        <th>id</th>
+        <th>日付</th>
+        <th>開始時間</th>
+        <th>テーマ</th>
+        <th>内容</th>
+        <th>Link</th>
+
+      </tr>
+      <tr th:each="list : ${DbList}">
+        <td noWrap th:text="${list.id}"></td>
+        <td noWrap th:text="${list.dt}"></td>
+        <td noWrap th:text="${list.starttime}"></td>
+        <td noWrap><strong><a th:text="${list.theme}"></a></strong><br/><a>　　</a><a th:text="${list.content}"></a></td>
+        <td noWrap th:text="${list.content}"></td>
+        <td width=30><a  th:href="@{${list.link}}"><div th:text="${list.link}" ></div></a></td> 
+        
+      </tr>
+    </table>*/-->
+    
+    
+    
+    
+     <!--/*<a>id:</a><a href="/507"><span th:text="${list.id}"></span></a><br/>*/-->
+    
+     <!--/*<table border=’true’ >
+      <tr th:each="list : ${DbList}">
+        <td noWrap vAlign="top" th:text="${list.dt}"></td>
+        <td noWrap><strong><a th:text="${list.theme}"></a></strong><a>　　</a>
+        <a>id:</a><a th:href="@{${list.link}}"><span th:text="${list.id}"></span></a><br/>
+       
+        <a>時間:</a><a th:text="${list.starttime}"></a><br/>
+        <a>　</a><a th:text="${list.content}"></a><br/>
+        <a>　</a><a>Link:</a><a  th:href="@{${list.link}}"><span th:text="${list.link}" ></span></a>
+        </td>
+                
+      </tr>
+    </table>*/-->
+    
+    
+    
+    <br/><br/><br/>
+    
+    
+        <table style="width:100%;font-size:20px;">
+      <tr th:each="list : ${DbList}">
+        <td noWrap style="width:20%;font-size:20px;" vAlign="top" th:text="${list.dt}"></td>
+        <td style="width:2%;"></td>
+        <td noWrap style="width:78%;"><strong><a th:text="${list.theme}" style="font-size:30px;"></a></strong><a>　　</a>
+        <a>id:</a><a th:href="@{${list.link}}"><span th:text="${list.id}"></span></a>
+       
+        <a>　　</a><a>時間:</a><a th:text="${list.starttime}"></a><a>～</a><br/>
+        <a>　</a><a th:text="${list.content}" style="font-size:30px;"></a><br/>
+        <a>　</a><a>Link:</a><a  th:href="@{${list.link}}"><span th:text="${list.link}" ></span></a>
+        </td>
+                
+      </tr>
+    </table>
+    
+    
+    
+    
+    
+     <!--/*   <table border=’true’   style="width:100%;font-size:20px;">
+      <tr th:each="list : ${DbList}">
+        <td noWrap style="width:20%;" vAlign="top" th:text="${list.dt}"></td>
+        <td noWrap ><strong><a th:text="${list.theme}"></a></strong><a>　　</a>
+        <a>id:</a><a th:href="@{${list.link}}"><span th:text="${list.id}"></span></a><br/>
+       
+        <a>時間:</a><a th:text="${list.starttime}"></a><br/>
+        <a>　</a><a th:text="${list.content}"></a><br/>
+        <a>　</a><a>Link:</a><a th:href="@{${list.link}}"><span th:text="${list.link}"></span"></a>
+        </td>
+                
+      </tr>
+    </table>*/-->
+    
+    <!--/*<table border=’true’   style="width:100%;font-size:20px;">
+    <tr th:each="list : ${DbList}">
+     <td style="width:20%;" vAlign="top" th:text="${list.dt}"></td>
+     <td><strong><a th:text="${list.theme}" style="font-size:30px;"></a></strong><a>　　</a>
+        <a style="font-size:15px;">id:</a><a th:href="@{${list.link}}"><span th:text="${list.id}"></span></a><br/>
+        <a style="font-size:15px;">時間:</a><a style="font-size:15px;" th:text="${list.starttime}"></a style="font-size:15px;"><br/>
+        <a>　</a><a th:text="${list.content}"></a><br/>
+        <a>　</a><a>Link:</a><a th:href="@{${list.link}}"><span th:text="${list.link}"></span></a>
+     </td>
+    </tr>
+    </table>*/-->
+    
+    
+    
+    
+    
+    <!--/* ソースに出力されないコメント */-->
+<h2  style="font-size:12px; font-weight:700; color:rgb(255, 0, 0);">idの番号を押すと、全文確認、『更新』や『削除』を行なえます。</h2>
+
+<h2  style="font-size:12px; font-weight:700; color:rgb(255, 0, 0);">※上記のスケジュールは、編集参加者によって登録されたデータです。正しくは、各公式の発表を確認ください。</h2>
+
+<br/><br/>
+<form action="/509" method="post">
+id：<input type="text" name="id" size="10" />
+<input type="submit" value="削除➡/509" /></form>
+
+<br/>
+<!--/*
+<form action="/510" method="post"  >
+テーマ：<input type="text" name="theme" size="10" />
+<input type="submit" value="検索➡/510" /></form>
+*/-->
+
+    <!--/* ソースに出力されないコメント */-->
+
+<!--/*
+    <table border=’true’ >
+      <tr>
+        <th>登録済テーマ</th>
+      </tr>
+      <tr th:each="list1 : ${DbList1}">
+        <td th:text="${list1.theme}"></td>
+      </tr>
+    </table>
+<br/>
+
+*/-->
+
+<!--/*
+<form action="/510" method="post">
+<input type="date" name="dt">
+<input type="time" name="dt">
+開始時間:<input type="text" name="starttime" size="10"/>
+<input type="submit" value="検索➡/510" />
+</form>
+*/-->
+
+<!--/*
+<select name="example2" size="5">
+<option value="">5つの選択肢を表示</option>
+<option>選択肢のサンプル2</option>
+<option>選択肢のサンプル3</option>
+<option>選択肢のサンプル4</option>
+<option>選択肢のサンプル5</option>
+<option>選択肢のサンプル6</option>
+<option>選択肢のサンプル7</option>
+</select>
+
+
+<input type="checkbox" value="on" id="checkStr1" name="checkStr">
+<input type="hidden" name="_checkStr" value="on">
+*/-->
+    <!--/* プルダウン選択式検索 */-->
+
+<form method="post" action="/510">
+<p>
+<select name="theme" required>
+<option value="">選択してください</option>
+<div th:each="list1 : ${DbList1}">
+<option th:text="${list1.theme}"></option>
+</div>
+</select>
+<input type="submit" value="全期間表示...検索する➡/510">
+</p>
+</form>
+<br/>
+<br/>
+
+    <!--/* チェックボックス送信 */-->
+<!--/* 
+<form method="post" action="/510" >
+	<div th:each="list1 : ${DbList1}">
+    <input type="checkbox" name="theme" th:value="${list1.theme}" th:text="${list1.theme}">
+    </div>
+	
+	<p><input type="submit" value="送信➡/510検索"></p>
+</form>
+*/-->
+
+    <!--/* チェックボックス送信2 */-->
+    
+<!--/*
+<form method="post" action="/510-1">
+	<div th:each="list1 : ${DbList1}">
+    <input type="checkbox" name="theme" th:value="${list1.theme}" th:text="${list1.theme}">
+    </div>
+	
+	<p><input type="submit" value="送信➡/510-1検索複数"></p>
+</form>
+*/-->
+
+
+    <!--/* チェックボックス送信2-2 width="100px" style="margin-right: auto;" */-->
+    
+    
+<form method="get" action="/510-2" >
+	<div th:each="list1 : ${DbList1}">
+    <input type="checkbox" name="theme" th:value="${list1.theme}" th:text="${list1.theme}">
+    </div>
+	
+	<p><input type="submit" value="送信➡/510-2Get検索複数"></p>
+</form>
+
+
+<!--/*
+<form method="get" action="select.html">
+<p>
+<select name="example" required>
+<option value="">選択してください</option>
+<option>選択肢のサンプル1</option>
+<option>選択肢のサンプル2</option>
+<option>選択肢のサンプル3</option>
+<option>選択肢のサンプル4</option>
+<option>選択肢のサンプル5</option>
+</select>
+ <strong>必須</strong>
+</p>
+<p><input type="submit" value="送信する"></p>
+
+</form>
+*/-->
+
+
+    <!--/* ソースに出力されないコメント */-->
+
+    <!--/* ソースに出力されないコメント */-->
+<!--/*
+<br/>
+
+      <tr>
+        <th>登録済テーマ</th><br/>
+      </tr>
+      <div th:each="list1 : ${DbList1}">
+        <input type=”checkbox”name="theme" th:value="@{${list1.theme}}">
+        <p th:text="${list1.theme}"></p>
+      </div>*/-->
+    <!--/* ソースに出力されないコメント */-->
+
+
+<br/>
+<br/>
+
+<!--/*
+ <form action="/515" method="post" >
+<table >
+      <tr>
+        <th>日付</th>
+        <th>開始時間</th>
+      </tr>
+ <tr>
+<th><input type="text" name="dt" size="10" /></th>
+<th><input type="text" name="starttime" size="10"/></th>
+</tr>
+</table>
+<input type="submit" value="送信➡/515" />
+</form><br/>
+*/-->
+
+
+
+<!--/*
+ <form action="/515-1" method="post" >
+日付：<input type="date" name="dt">　テーマ：<input type="text" name="theme" size="10" value="TOEIC"/>
+<input type="submit" value="送信➡/515-1" />
+</form><br/>
+*/-->
+
+
+ <form action="/513-1" method="post" >
+<table>
+      <tr>
+        <th>日付*</th>
+        <th>開始時間</th>
+        <th>テーマ*</th>
+        <th>内容</th>
+        <th>Link</th>
+      </tr>
+ <tr>
+<th><input type="date" name="dt"></th>
+<th><input type="time" name="starttime"></th>
+<th><input type="text" name="theme" size="10" value="TOEIC"/></th>
+<th><input type="text" name="content" size="10" value="TOEIC"/></th>
+<th><input type="text" name="link" size="10" value="TOEIC"/></th>
+</tr>
+</table>
+<input type="submit" value="送信➡/513-1" />
+</form><br/>
+
+
+<!--/*
+ <form action="/513-1" method="post" >
+<table >
+      <tr>
+        <th>日付</th>
+        <th>開始時間</th>
+        <th>テーマ</th>
+        <th>内容</th>
+        <th>Link</th>
+      </tr>
+ <tr>
+<th><input type="text" name="dt" size="10" /></th>
+<th><input type="text" name="starttime" size="10"/></th>
+<th><input type="text" name="theme" size="10"/></th>
+<th><input type="text" name="content" size="10"/></th>
+<th><input type="text" name="link" size="10"/></th>
+</tr>
+</table>
+<input type="submit" value="送信➡/513" />
+</form><br/>
+*/-->
+
+
+
+    
+
+
+
+<br/><br/>
+<form action="/507" method="get"  >
+<input type="submit" value="更新➡/507" /></form>
+<br/><br/>
+
+
+
+
+
+<br/><br/>
+<form action="/519" method="get"  >
+<input type="submit" value="今日以降でソート➡/519" /></form>
+<br/><br/><a>表示中のスケジュールを共有しよう!</a>
+<a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-show-count="false">Tweet</a>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<h2  style="font-size:12px; font-weight:700; color:rgb(255, 0, 0);">
+※サービス、または編集機能は予告なく停止・廃止する場合がございます。</h2>
+
+ 
+    
+  </body>
+</html>

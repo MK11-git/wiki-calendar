@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>確認画面4</title>
+</head>
+<body>
+  <h2>入力情報を確認して登録ボタンを押してください-4</h2>
+  
+   <form action="/DBregister4" method="post"> 
+  名前：<strong th:text="${rb.name}"></strong><br/>
+  年齢：<strong th:text="${rb.age}"></strong><br/><br/>
+  <input type="submit" value="登録" /><br/>
+  </form>
+  
+<form action="/4" method="post">
+<br/><input type="submit" value="戻るよ" />
+</form>
+</body>
+</html>
