@@ -168,6 +168,25 @@ public class DbRepository {
 	
 	}
 	
+//	//検索文。idから検索
+	public List<All5Dto> searchByid(int id) {
+		String sql = "select * from all5 where id=" + id ; 
+		List<Map<String, Object>> dbList = jdbcTemplate.queryForList(sql);
+		List<All5Dto> list = new ArrayList<>();
+		for (Map<String, Object> db5 : dbList) {
+			list.add(new All5Dto(
+					(int) db5.get("id"),
+					(Date) db5.get("dt"),
+					(Time) db5.get("starttime"),
+					(String) db5.get("theme"),
+					(String) db5.get("content"),
+					(String) db5.get("link")
+					));
+		}
+		return list;
+	
+	}
+	
 	
 	
 	

@@ -22,7 +22,7 @@ public class MainController {
 	
     private final DbRepository dbRepository;
     
-	@GetMapping("/507")
+	@GetMapping("/")
 	public String write1(Model model) {
 		List<All5Dto> list = dbRepository.getAll();
 		model.addAttribute("DbList",list);
@@ -250,6 +250,18 @@ public class MainController {
 		
 		
 		return "test507.html";
+	}
+	
+	
+	
+	@GetMapping("/update")
+	public String write19update(@RequestParam int id,Model model) {
+		List<All5Dto> list = dbRepository.searchByid(id);
+		model.addAttribute("DbList",list);
+		
+		
+		
+		return "update.html";
 	}
 	
 	
