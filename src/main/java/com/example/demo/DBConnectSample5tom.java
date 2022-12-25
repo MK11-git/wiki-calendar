@@ -40,7 +40,7 @@ public class DBConnectSample5tom extends HttpServlet
 			Class.forName("com.mysql.cj.jdbc.Driver"); // JDBC ドライバのロード
 			String url = "jdbc:mysql://localhost/devdb01?useUnicode=true&characterEncoding=utf8"; // 接続先URL
 			String user = "root"; //ユーザ名
-			String password = "root"; // パスワード
+			String password = "3140293Mysql2212!"; // パスワード
 
 			conn = DriverManager.getConnection(url, user, password); // 接続の確立
 
@@ -111,7 +111,7 @@ public class DBConnectSample5tom extends HttpServlet
 			Class.forName("com.mysql.cj.jdbc.Driver"); // JDBC ドライバのロード
 			String url = "jdbc:mysql://localhost/devdb01?useUnicode=true&characterEncoding=utf8"; // 接続先URL
 			String user = "root"; //ユーザ名
-			String password = "root"; // パスワード
+			String password = "3140293Mysql2212!"; // パスワード
 
 			conn = DriverManager.getConnection(url, user, password); // 接続の確立
 
@@ -186,7 +186,7 @@ public class DBConnectSample5tom extends HttpServlet
 			Class.forName("com.mysql.cj.jdbc.Driver"); // JDBC ドライバのロード
 			String url = "jdbc:mysql://localhost/devdb01?useUnicode=true&characterEncoding=utf8"; // 接続先URL
 			String user = "root"; //ユーザ名
-			String password = "root"; // パスワード
+			String password = "3140293Mysql2212!"; // パスワード
 
 			conn = DriverManager.getConnection(url, user, password); // 接続の確立
 
