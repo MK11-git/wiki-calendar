@@ -21,7 +21,7 @@ public class DbRepository {
 	public List<All5Dto> getAll() {
         long miliseconds = System.currentTimeMillis();
         Date date = new Date(miliseconds);
-		String sql = "select id,dt,starttime,theme,content,link from all5 WHERE dt > '"+date+ "' ORDER BY dt ASC"; //,dt,starttime,theme,content,link
+		String sql = "select id,dt,starttime,theme,content,link from all5 WHERE dt >= '"+date+ "' ORDER BY dt ASC LIMIT 100"; //,dt,starttime,theme,content,link
 		List<Map<String, Object>> dbList = jdbcTemplate.queryForList(sql);
 		List<All5Dto> list = new ArrayList<>();
 		for (Map<String, Object> db5 : dbList) {
@@ -81,33 +81,33 @@ public class DbRepository {
 	
 	
 	
-	//削除メソッド失敗。
-	public List<All5Dto> deleteAll(DbAll5Bean rb) {
-		String sql = "select id,dt,starttime,theme,content,link from all5"; //,dt,starttime,theme,content,link
-  
-
-//	    DbAll5Bean rb = new DbAll5Bean();
-		int id = rb.getId();
-//		int id = model.rb.getId();
-		String sql1 = "delete from all5 where id ="+ id;
-//		List<Map<String, Object>> dbList1 = 
-				jdbcTemplate.queryForList(sql1);
-		
-		List<Map<String, Object>> dbList = jdbcTemplate.queryForList(sql);
-		List<All5Dto> list = new ArrayList<>();
-		for (Map<String, Object> db5 : dbList) {
-			list.add(new All5Dto(
-					(int) db5.get("id"),
-					(Date) db5.get("dt"),
-					(Time) db5.get("starttime"),    //null , 
-//					(SimpleDateFormat) db5.get("starttime"),
-					(String) db5.get("theme"),
-					(String) db5.get("content"),
-					(String) db5.get("link")
-					));
-		}
-		return list;
-	}
+//	//削除メソッド失敗。
+//	public List<All5Dto> deleteAll(DbAll5Bean rb) {
+//		String sql = "select id,dt,starttime,theme,content,link from all5"; //,dt,starttime,theme,content,link
+//  
+//
+////	    DbAll5Bean rb = new DbAll5Bean();
+//		int id = rb.getId();
+////		int id = model.rb.getId();
+//		String sql1 = "delete from all5 where id ="+ id;
+////		List<Map<String, Object>> dbList1 = 
+//				jdbcTemplate.queryForList(sql1);
+//		
+//		List<Map<String, Object>> dbList = jdbcTemplate.queryForList(sql);
+//		List<All5Dto> list = new ArrayList<>();
+//		for (Map<String, Object> db5 : dbList) {
+//			list.add(new All5Dto(
+//					(int) db5.get("id"),
+//					(Date) db5.get("dt"),
+//					(Time) db5.get("starttime"),    //null , 
+////					(SimpleDateFormat) db5.get("starttime"),
+//					(String) db5.get("theme"),
+//					(String) db5.get("content"),
+//					(String) db5.get("link")
+//					));
+//		}
+//		return list;
+//	}
 	
 	
 
@@ -120,7 +120,7 @@ public class DbRepository {
 	
 
 //	//検索文。
-	public List<All5Dto> searchBytheme(String theme) {
+	public List<All5Dto> searchBythemeall(String theme) {
 		String sql = "select * from all5 where theme='" + theme +"' ORDER BY dt ASC"; 
 		List<Map<String, Object>> dbList = jdbcTemplate.queryForList(sql);
 		List<All5Dto> list = new ArrayList<>();
@@ -150,8 +150,10 @@ public class DbRepository {
 			}
 		    str = str + "theme='"+theme[i] +"'";
 		}
+        long miliseconds = System.currentTimeMillis();
+        Date date = new Date(miliseconds);
 		
-		String sql = "select * from all5 where " + str +" ORDER BY dt ASC"; 
+		String sql = "select * from all5 where (" + str +") AND dt >='"+date+"' ORDER BY dt ASC"; 
 		List<Map<String, Object>> dbList = jdbcTemplate.queryForList(sql);
 		List<All5Dto> list = new ArrayList<>();
 		for (Map<String, Object> db5 : dbList) {
@@ -172,6 +174,30 @@ public class DbRepository {
 	public List<All5Dto> searchByid(int id) {
 		String sql = "select * from all5 where id=" + id ; 
 		List<Map<String, Object>> dbList = jdbcTemplate.queryForList(sql);
+		List<All5Dto> list = new ArrayList<>();
+		for (Map<String, Object> db5 : dbList) {
+			list.add(new All5Dto(
+					(int) db5.get("id"),
+					(Date) db5.get("dt"),
+					(Time) db5.get("starttime"),
+					(String) db5.get("theme"),
+					(String) db5.get("content"),
+					(String) db5.get("link")
+					));
+		}
+		return list;
+	
+	}
+	
+//	//UPDATE文文。idから検索
+	public List<All5Dto> updateByid(int id,Date dt,String strtime,String content,String link) {
+		String sql = "UPDATE all5 SET dt='"+ dt +"',starttime='" + strtime + "',content='" + content + "',link='" + link +"' WHERE id=" + id  ; 
+//		List<Map<String, Object>> dbList = jdbcTemplate.queryForList(sql);
+		jdbcTemplate.queryForList(sql);
+        long miliseconds = System.currentTimeMillis();
+        Date date = new Date(miliseconds);
+		String sql1 = "select id,dt,starttime,theme,content,link from all5 WHERE dt > '"+date+ "' ORDER BY dt ASC"; 
+		List<Map<String, Object>> dbList = jdbcTemplate.queryForList(sql1);
 		List<All5Dto> list = new ArrayList<>();
 		for (Map<String, Object> db5 : dbList) {
 			list.add(new All5Dto(
@@ -277,6 +303,25 @@ public class DbRepository {
 	public int insert3(Date dt,String strtime,String theme,String content,String link) {
 	    return jdbcTemplate.update("insert into all5(dt,starttime,theme,content,link) values(?,?,?,?,?)",dt,strtime,theme,content,link);
 	  }
+	
+	//UPDATE文、jdbcTemplateで。。
+	public int update2(int id,Date dt,String strtime,String content,String link) {
+	    String sql = ""
+	            + "UPDATE all5 SET "
+	                + "dt = ? ,starttime = ? ,content = ? ,link = ? "
+	            + "WHERE" + " id = ?;";
+		
+	    return jdbcTemplate.update(
+	    		sql
+	    		,dt
+	    		,strtime
+	    		,content
+	    		,link
+	    		,id);
+	  }
+	
+	
+	
 //	//Timeいじり。
 //	public int insert3(Date dt,String strtime,String theme,String content) {
 //	    return jdbcTemplate.update("insert into all5(dt,starttime,theme,content,link) values(?,?,?,?)",dt,strtime,theme,content);

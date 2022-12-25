@@ -33,7 +33,7 @@ public class MainController {
 		return "test507.html";
 	}
 
-	@PostMapping("/507")
+	@PostMapping("/")
 	public String write1post(Model model) {
 		List<All5Dto> list = dbRepository.getAll();
 		model.addAttribute("DbList",list);
@@ -42,31 +42,21 @@ public class MainController {
 		return "test507.html";
 	}
 	
-
-	//削除-失敗
-	@PostMapping("/508")
-	public String write508(@RequestParam int id,Model model) {
-		
-//		public int deleteid1 =  id;
-//		model.addAttribute("Deleteid", id);
-	    DbAll5Bean rb = new DbAll5Bean();
-	    rb.setId(id);
-//		model.addAttribute("rb",rb);
-	    
-		List<All5Dto> list = dbRepository.deleteAll(rb);
-//		model.addAllAttributes("deleteid",test1);
-		
-		model.addAttribute("DbList",list);
-		return "test507.html";
+	
+    
+	@GetMapping("/555")
+	public String write2(Model model) {
+		return "redirect:/";
 	}
 	
+
 	
-	//削除-成功
-	@PostMapping("/509")
-	public String write509(@RequestParam int id,Model model) {
-//		List<All5Dto> list = 
+	
+	//削除して、そのthemeで全期間表示
+	@PostMapping("/d")
+	public String write509(@RequestParam int id,String theme,Model model) {
 		dbRepository.deleteById(id);	
-		List<All5Dto> list = dbRepository.getAll();
+		List<All5Dto> list = dbRepository.searchBythemeall(theme);
 		model.addAttribute("DbList",list);
 		List<All5Dto1> list1 = dbRepository.getAll16();
 		model.addAttribute("DbList1",list1);
@@ -74,19 +64,19 @@ public class MainController {
 	}
 	
 
-	//検索
-	@PostMapping("/510")
+	//theme全期間検索
+	@GetMapping("/a")
 	public String write510(@RequestParam String theme,Model model) {
 //		dbRepository.searchBytheme(theme);
-		List<All5Dto> list = dbRepository.searchBytheme(theme);
+		List<All5Dto> list = dbRepository.searchBythemeall(theme);
 		model.addAttribute("DbList",list);
 		List<All5Dto1> list1 = dbRepository.getAll16();
 		model.addAttribute("DbList1",list1);
 		return "test507.html";
 	}
 	
-	//検索
-	@PostMapping("/510-1")
+	//複数theme検索
+	@PostMapping("/ca-1")
 	public String write510_1(@RequestParam String[] theme,Model model) {
 //		dbRepository.searchBytheme(theme);
 		List<All5Dto> list = dbRepository.searchBytheme1(theme);
@@ -96,8 +86,8 @@ public class MainController {
 		return "test507.html";
 	}
 	
-	//検索
-	@GetMapping("/510-2")
+	//複数theme検索get
+	@GetMapping("/ca")
 	public String write510_2(@RequestParam String[] theme,Model model) {
 //		dbRepository.searchBytheme(theme);
 		List<All5Dto> list = dbRepository.searchBytheme1(theme);
@@ -207,7 +197,7 @@ public class MainController {
 		return "test507.html";
 	}
 	//INSERT文3
-	@PostMapping("/513-1")
+	@PostMapping("/i")
 	public String write513_1(@RequestParam Date dt,String starttime,String theme,String content,String link,Model model) {
 //		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 //		String strDate = dateFormat.format(dt);
@@ -262,6 +252,26 @@ public class MainController {
 		
 		
 		return "update.html";
+	}
+	
+	
+	@PostMapping("/update1")
+	public String write19update(@RequestParam int id,Date dt,String theme,String starttime,String content,String link,Model model) {
+
+		String strtime = starttime ; //+":00"
+//		List<All5Dto> list = dbRepository.updateByid(id,dt,strtime,content,link);
+		dbRepository.update2(id,dt,strtime,content,link);  
+//		List<All5Dto> list = dbRepository.getAll();
+//		model.addAttribute("DbList",list);
+		List<All5Dto> list = dbRepository.searchBythemeall(theme);
+		model.addAttribute("DbList",list);
+		List<All5Dto1> list1 = dbRepository.getAll16();
+		model.addAttribute("DbList1",list1);
+//		model.addAttribute("DbList",list);
+		
+		
+		
+		return "test507.html";
 	}
 	
 	

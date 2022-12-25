@@ -33,29 +33,40 @@ function test(){
   <body>
   <h1  style="font-family:Nico Moji;font-size:42px; font-weight:700; color:rgb(0, 0, 255);">ウィキカレンダー
   </h1>
-  <input type="button" onclick="test();" value="最下部へ移動する">
-  
-   <p th:text="${new java.util.Date().toString()}"></p> 
   
 <form action="/" method="get" >
-<input type="submit" value="更新➡/" /></form>
- <!--/* <h1><a href="https://www.google.com/">google</a></h1> */-->
+<input type="submit" value="ホーム" /></form>
+  <input type="button" onclick="test();" value="最下部へ移動する"><br/>
+  
+    <br/><br/>
+  TODAY:<!--/*<span th:text="${new java.util.Date().toString()}"></span> */-->
+   <!--/*<span th:text="${new java.util.Date().toString('yyyy/MM/dd')}"></span>*/-->
+  <span th:text="${#calendars.format(#calendars.createNowForTimeZone('Asia/Tokyo'), 'yyyy/MM/dd')}"></span>
+
+ <!--/* <h1><a href="https://www.google.com/">google</a></h1>   yyyy年MM月dd日 (w) HH時mm分ss秒*/-->
  
  
   
     
 
     
-    
-    <br/><br/><br/>
+    <br/>
+    <br/>
     
     
         <table style="width:100%;font-size:20px;">
+        
+      <!--/*<tr>
+        <th style="width:20%" th:text="${new java.util.Date().toString()}"></th>
+        <th noWrap style="width:78%">TODAY</th>
+      </tr>*/-->
+      
       <tr th:each="list : ${DbList}">
-        <td noWrap style="width:20%;font-size:20px;" vAlign="top" th:text="${list.dt}"></td>
+        <!--/*<td noWrap style="width:20%;font-size:20px;" vAlign="top" th:text="${#dates.format(list.dt, 'M/d')} + '(' + ${#temporals.dayOfWeekName(dt)} + ')'"></td>*/-->
+        <td noWrap style="width:20%;font-size:32px;" vAlign="middle" th:text="${#dates.format(list.dt, 'M/d')}"></td>
         <td style="width:2%;"></td>
         <td noWrap style="width:78%;"><strong><a th:text="${list.theme}" style="font-size:30px;"></a></strong><a>　　</a>
-        <a>id:</a><a th:href="@{${list.link}}"><span th:text="${list.id}"></span></a>
+        <a>id:</a><a th:href="@{/update?id={id2}(id2=${list.id})}"><span th:text="${list.id}"></span></a>
        
         <a>　　</a><a>時間:</a><a th:text="${list.starttime}"></a><a>～</a><br/>
         <a>　</a><a th:text="${list.content}" style="font-size:30px;"></a><br/>
@@ -74,20 +85,24 @@ function test(){
     
     
     <!--/* ソースに出力されないコメント */-->
-<h2  style="font-size:12px; font-weight:700; color:rgb(255, 0, 0);">idの番号を押すと、全文確認、『更新』や『削除』を行なえます。</h2>
+<h2  style="font-size:16px; font-weight:700; color:rgb(128, 128, 128);">本日以降の日程を100件まで表示中。全件表示するには、「全期間で表示」をご利用ください。</h2>
+<h2  style="font-size:16px; font-weight:700; color:rgb(128, 128, 128);">idの番号を押すと、『更新』や『削除』を行なえます。</h2>
 
-<h2  style="font-size:12px; font-weight:700; color:rgb(255, 0, 0);">※上記のスケジュールは、編集参加者によって登録されたデータです。正しくは、各公式の発表を確認ください。</h2>
+
+<h2  style="font-size:16px; font-weight:700; color:rgb(255, 0, 0);">※上記のスケジュールは、編集参加者によって登録されたデータです。正しくは、各公式の発表を確認ください。</h2>
 
 <br/><br/>
+
+<!--/*
 <form action="/509" method="post">
 id：<input type="text" name="id" size="10" />
 <input type="submit" value="削除➡/509" /></form>
 
 <br/>
+*/-->
 
 
-
-<form method="post" action="/510">
+<form method="get" action="/a">
 <p>
 <select name="theme" required>
 <option value="">選択してください</option>
@@ -95,7 +110,7 @@ id：<input type="text" name="id" size="10" />
 <option th:text="${list1.theme}"></option>
 </div>
 </select>
-<input type="submit" value="全期間表示...検索する➡/510">
+<input type="submit" value="全期間で表示する">
 </p>
 </form>
 <br/>
@@ -105,12 +120,12 @@ id：<input type="text" name="id" size="10" />
 
 
     
-<form method="get" action="/510-2" >
+<form method="get" action="/ca" >
 	<div th:each="list1 : ${DbList1}">
     <input type="checkbox" name="theme" th:value="${list1.theme}" th:text="${list1.theme}">
     </div>
 	
-	<p><input type="submit" value="送信➡/510-2Get検索複数"></p>
+	(複数選択可能)<p><input type="submit" value="検索"></p>
 </form>
 
 
@@ -122,25 +137,29 @@ id：<input type="text" name="id" size="10" />
 
 
 
-
- <form action="/513-1" method="post" >
+<h2>新規登録</h2>
+ <form action="/i" method="post" >
 <table>
       <tr>
         <th>日付*</th>
         <th>開始時間</th>
         <th>テーマ*</th>
-        <th>内容</th>
+        <th>内容(30文字以内)</th>
         <th>Link</th>
       </tr>
  <tr>
-<th><input type="date" name="dt"></th>
+<th><input type="date" name="dt" th:value="${#calendars.format(#calendars.createNowForTimeZone('Asia/Tokyo'), 'yyyy-MM-dd')}"></th>
 <th><input type="time" name="starttime"></th>
-<th><input type="text" name="theme" size="10" value="TOEIC"/></th>
-<th><input type="text" name="content" size="10" value="TOEIC"/></th>
-<th><input type="text" name="link" size="10" value="TOEIC"/></th>
+<th><input type="text" name="theme" size="10"/></th>
+<th><input type="text" name="content" size="10"></th>
+<th><input type="text" name="link" size="10"></th>
 </tr>
 </table>
-<input type="submit" value="送信➡/513-1" />
+<h2  style="font-size:12px; font-weight:700; color:rgb(255, 0, 0);">
+※日付とテーマは、必須項目です。</h2>
+<h2  style="font-size:12px; font-weight:700; color:rgb(255, 0, 0);">
+※Linkは、httpなどから始まる完全なurlを記載ください。</h2>
+<input type="submit" value="送信" />
 </form><br/>
 
 
@@ -151,29 +170,32 @@ id：<input type="text" name="id" size="10" />
 
 <br/><br/>
 <form action="/" method="get"  >
-<input type="submit" value="更新➡/" /></form>
+<input type="submit" value="ホーム" /></form>
 <br/><br/>
 
-
+<!--/*
 <br/><br/>
 <form action="/update" method="get"  >
 id：<input type="text" name="id" size="10" />
 <input type="submit" value="編集画面➡/update" />
 </form>
 <br/><br/>
+*/-->
 
 
-
-
+<!--/*
 <br/><br/>
 <form action="/519" method="get"  >
 <input type="submit" value="今日以降でソート➡/519" /></form>
+*/-->
+
+
 <br/><br/><a>表示中のスケジュールを共有しよう!</a>
 <a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-show-count="false">Tweet</a>
 <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 <h2  style="font-size:12px; font-weight:700; color:rgb(255, 0, 0);">
-※サービス、または編集機能は予告なく停止・廃止する場合がございます。</h2>
+※編集機能、または本サービスは予告なく停止・廃止する場合がございます。</h2>
 
  
     
