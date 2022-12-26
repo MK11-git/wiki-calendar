@@ -1,0 +1,171 @@
+@charset "UTF-8";
+
+
+body {
+	font-size: 16px; 
+}
+        
+
+
+.tr1 {
+    border-color: gray;
+    border-style: solid;
+    border-width: 1px 0;
+}
+
+
+#table1{ 
+    border-collapse: collapse;
+    background:rgb(242, 242, 255); 
+    width:100%;
+    font-size:20px;
+}
+#table2{
+    border-collapse: collapse;
+    width:80%;
+    font-size:20px;
+}
+
+
+
+
+
+#table3{
+  border-collapse:separate;
+  border-spacing: 10px 10px;
+    width:80%;
+    font-size:20px;
+    margin-left:10px;
+}
+#table3 tr{
+  padding: 10px 0;
+}
+
+#table3td1,#table3td2{
+  border-radius: 10px;
+  text-align: center;
+  padding: 10px 0;
+}
+#table3td1{
+  background-color: rgb(238, 238, 255);
+  color: rgb(0, 0, 0);
+  border:solid 1px rgb(0, 0, 0);
+	font-size:24px;
+	font-weight:700;
+	font-family:  "Hiragino Kaku Gothic Pro", Osaka, メイリオ, Meiryo, "ＭＳ Ｐゴシック", "MS PGothic", sans-serif;
+	
+}
+#table3td2{
+  background-color: #e4d4bc;
+  border:solid 1px #af9d85;
+  box-shadow: 0 10px 25px 0 rgba(0, 0, 0, .5);
+}
+
+
+
+
+
+
+.table2th{
+	height: 2em;
+	font-size:20px;
+	font-weight:400;
+}
+
+
+
+#hh1 {
+	font-size:42px;
+	font-family:Nico Moji;
+	font-weight:700;
+	 color:rgb(0, 0, 255);
+	
+}
+#tddate{
+	width:20%;
+	font-size:32px;
+}
+#tdcontent1{
+	 width:80%;
+	
+}
+#theme{
+	 font-size:30px;
+	 font-weight:bold;   
+}
+#content{
+	 font-size:30px;
+}
+.hh2{
+	 font-size:14px;
+	 font-weight:700;
+	 color:rgb(128, 128, 128);
+}
+.hh21{
+	 font-size:14px;
+	 font-weight:700;
+	 color:rgb(255, 0, 0);
+}
+.hh22{
+	 color:rgb(128, 128, 128);
+}
+.moji1{
+	 font-size:14px;
+	 font-weight:400;
+	
+}
+.moji2{
+	 font-size:20px;
+	 font-weight:700;
+	
+}
+
+
+.select{
+	font-size:2em;
+}
+.inline_box{
+	width: 40%;
+	height: 250px;
+	overflow: auto;
+	background: #ffffff;
+	border: 1px solid #cccccc;
+	padding: 10px;
+}
+
+input[type=checkbox]{
+	transform: scale(2);
+	margin: 0 10px 10px 6px;
+	
+}
+.option{
+	font-size:18px;
+    padding: 10px;
+	
+}
+
+.submit{
+	font-size:18px;
+    width: 150px;
+    padding: 10px;
+    box-sizing: border-box;
+    border: 1px solid #68779a;
+    cursor: pointer;
+	
+}
+.submit1{
+	font-size:18px;
+    width: 75px;
+    padding: 5px;
+    box-sizing: border-box;
+    border: 1px solid #68779a;
+    cursor: pointer;
+}
+
+.subtitle{
+	font-size: 36px;
+	font-weight:700;
+}
+
+    
+    

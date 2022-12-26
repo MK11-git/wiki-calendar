@@ -2,16 +2,20 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>編集画面</title>
+  <!--/* src/main/resources/static/css/common.css を読み込む */-->
+  <link th:href="@{/css/common.css}" rel="styleSheet">
+
 </head>
 <body>
 
 
     
     
-    
+
+<h2 class="subtitle">編集登録</h2>
  <form action="/update1" method="post" >
- <table>
+ <table id="table2">
       <tr>
         <th>id</th>
         <th>日付*</th>
@@ -21,15 +25,15 @@
         <th>Link</th>
       </tr>
  <tr th:each="list : ${DbList}">
- <th><input type="hidden" name="id" th:value="${list.id}" th:text="${list.id}"></th>
- <th><input type="date" name="dt" th:value="${list.dt}"></th>
- <th><input type="time" name="starttime" th:value="${list.starttime}"></th>
- <th><input type="hidden" name="theme" th:value="${list.theme}" th:text="${list.theme}"></th>
- <th><input type="text" name="content" size="10" th:value="${list.content}" /></th>
- <th><input type="text" name="link" size="10" th:value="${list.link}"/></th>
+ <th><input class="table2th" type="hidden" name="id" th:value="${list.id}" th:text="${list.id}"></th>
+ <th><input class="table2th" type="date" name="dt" th:value="${list.dt}"></th>
+ <th><input class="table2th" type="time" name="starttime" th:value="${list.starttime}"></th>
+ <th><input class="table2th" type="hidden" name="theme" th:value="${list.theme}" th:text="${list.theme}"></th>
+ <th><input class="table2th" type="text" name="content" th:value="${list.content}" /></th>
+ <th><input class="table2th" type="text" name="link" th:value="${list.link}"/></th>
  </tr>
  </table>
- <input type="submit" value="更新" />
+ <input class="submit" type="submit" value="更新" />
  </form>
 
 <br/> 
@@ -39,10 +43,13 @@
 <form action="/d" method="post"  th:each="list : ${DbList}">
 id：<input type="hidden" name="id" th:value="${list.id}" th:text="${list.id}">
 <input type="hidden" name="theme" th:value="${list.theme}">
-<input type="submit" value="削除" />　(一度押すと、このidのレコード1件が完全に削除されます。)
+<input class="submit1" type="submit" value="削除" />　(一度押すと、このレコード1件は完全に削除されます。)
 </form>
 
 <br/>
+
+<br/>
+<p>戻る場合は、ブラウザの戻るをご利用ください</p>
 
 
 
