@@ -5,6 +5,7 @@
     <title>ウィキカレ!</title>
 
 
+<link href="https://fonts.googleapis.com/earlyaccess/nicomoji.css" rel="stylesheet">
 
   <!--/* src/main/resources/static/css/common.css を読み込む */-->
   <link th:href="@{/css/common.css}" rel="styleSheet">
@@ -21,7 +22,7 @@
   <input class="submit" type="button" onclick="test();" value="最下部へ移動"><br/>
   
     <br/><br/>
-  <a class="moji1">今日は、</a><!--/*<span th:text="${new java.util.Date().toString()}"></span> */-->
+  <a class="moji1">TODAY:</a><!--/*<span th:text="${new java.util.Date().toString()}"></span> */-->
    <!--/*<span th:text="${new java.util.Date().toString('yyyy/MM/dd')}"></span>*/-->
   <span class="moji2" th:text="${#calendars.format(#calendars.createNowForTimeZone('Asia/Tokyo'), 'yyyy/MM/dd')}"></span>
 
@@ -33,18 +34,12 @@
 
     
     <br/>
-    <br/>
     
     
-        <table id="table1">
+        <!--/*<table id="table1">
         
-      <!--/*<tr>
-        <th style="width:20%" th:text="${new java.util.Date().toString()}"></th>
-        <th noWrap style="width:78%">TODAY</th>
-      </tr>*/-->
       
       <tr class="tr1" th:each="list : ${DbList}">
-        <!--/*<td noWrap style="width:20%;font-size:20px;" vAlign="top" th:text="${#dates.format(list.dt, 'M/d')} + '(' + ${#temporals.dayOfWeekName(dt)} + ')'"></td>*/-->
         <td id="tddate" noWrap vAlign="middle" th:text="${#dates.format(list.dt, 'M/d')}"></td>
         <td id="tdcontent" noWrap><a id="theme" th:text="${list.theme}"></a><a>　　</a>
         <a>id:</a><a th:href="@{/update?id={id2}(id2=${list.id})}"><span th:text="${list.id}"></span></a>
@@ -57,7 +52,7 @@
         </td>
                 
       </tr>
-    </table>
+    </table>*/-->
     
     
     
@@ -102,7 +97,6 @@
     
     
     
-    <!--/* ソースに出力されないコメント */-->
 <h2 class="hh2">本日以降の日程を100件まで表示中。全件表示するには、「全期間で表示」をご利用ください。</h2>
 <h2 class="hh2">idの番号を押すと、『更新』や『削除』を行なえます。</h2>
 
@@ -120,17 +114,7 @@ id：<input type="text" name="id" size="10" />
 */-->
 
 
-<form method="get" action="/a">
-<p>
-<select class="option" name="theme" required>
-<option class="table2th" value="">選択してください</option>
-<div th:each="list1 : ${DbList1}">
-<option th:text="${list1.theme}"></option>
-</div >
-</select>
-<input class="submit" type="submit" value="全期間で表示">
-</p>
-</form>
+
 <br/>
 <br/>
 
@@ -152,16 +136,29 @@ id：<input type="text" name="id" size="10" />
 
 
 <br/>
+
 <br/>
+<h2 class="subtitle">全期間表示</h2>
+<form method="get" action="/a">
+<p>
+<select class="option" name="theme" required>
+<option class="table2th" value="">選択してください</option>
+<div th:each="list1 : ${DbList1}">
+<option th:text="${list1.theme}"></option>
+</div >
+</select>
+<input class="submit" type="submit" value="全期間で表示">
+</p>
+</form>
 
 
 
-
+<br/>
 <br/> 
 <br/> 
 <h2 class="subtitle">新規登録</h2>
  <form action="/i" method="post" >
-<table id="table2">
+<table class="table2">
       <tr class="tr1">
         <th>日付*</th>
         <th>開始時間</th>
@@ -212,7 +209,7 @@ id：<input type="text" name="id" size="10" />
 */-->
 
 
-<br/><br/><a>表示中のスケジュールを共有しよう!</a>
+<br/><br/><a>表示中のカレンダーを共有しよう!</a>
 <a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-show-count="false">Tweet</a>
 <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 

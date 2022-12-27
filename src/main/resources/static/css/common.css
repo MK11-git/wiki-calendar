@@ -20,12 +20,19 @@ body {
     width:100%;
     font-size:20px;
 }
-#table2{
+.table2{
     border-collapse: collapse;
     width:80%;
     font-size:20px;
 }
 
+
+.table2th{
+	height: 2em;
+	font-size:20px;
+	font-weight:400;
+	white-space:nowrap;
+}
 
 
 
@@ -74,13 +81,6 @@ body {
 
 
 
-#hh1 {
-	font-size:42px;
-	font-family:Nico Moji;
-	font-weight:700;
-	 color:rgb(0, 0, 255);
-	
-}
 #tddate{
 	width:20%;
 	font-size:32px;
@@ -95,6 +95,15 @@ body {
 }
 #content{
 	 font-size:30px;
+}
+
+#hh1 {
+	text-align:center;
+	font-size:42px;
+  font-family: "Nico Moji";
+	font-weight:700;
+	 color:rgb(0, 0, 255);
+	
 }
 .hh2{
 	 font-size:14px;
