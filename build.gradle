@@ -34,3 +34,8 @@ dependencies {
 tasks.named('test') {
 	useJUnitPlatform()
 }
+
+//実行可能jarのmodule
+bootJar {
+    launchScript()
+}
