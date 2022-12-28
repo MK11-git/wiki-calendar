@@ -21,7 +21,7 @@ public class DbRepository {
 	public List<All5Dto> getAll() {
         long miliseconds = System.currentTimeMillis();
         Date date = new Date(miliseconds);
-		String sql = "select id,dt,starttime,theme,content,link from all5 WHERE dt >= '"+date+ "' ORDER BY dt ASC LIMIT 100"; //,dt,starttime,theme,content,link
+		String sql = "select id,dt,starttime,theme,content,link from all5 WHERE dt >= '"+date+ "' ORDER BY dt ASC LIMIT 50"; //,dt,starttime,theme,content,link
 		List<Map<String, Object>> dbList = jdbcTemplate.queryForList(sql);
 		List<All5Dto> list = new ArrayList<>();
 		for (Map<String, Object> db5 : dbList) {
@@ -56,7 +56,7 @@ public class DbRepository {
 	public List<All5Dto> getAll19() {
         long miliseconds = System.currentTimeMillis();
         Date date = new Date(miliseconds);
-		String sql = "select id,dt,starttime,theme,content,link from all5 WHERE dt > '"+date+"' ORDER BY dt ASC"; 
+		String sql = "select id,dt,starttime,theme,content,link from all5 WHERE dt >= '"+date+"' ORDER BY dt ASC"; 
 		List<Map<String, Object>> dbList = jdbcTemplate.queryForList(sql);
 		List<All5Dto> list = new ArrayList<>();
 		for (Map<String, Object> db5 : dbList) {
@@ -169,6 +169,38 @@ public class DbRepository {
 		return list;
 	
 	}
+	
+
+//	//検索文複数theme。
+	public List<All5Dto> searchBythemeall2(String[] theme) {
+		String str = "";
+		for(int i = 0; i < theme.length; i++)
+		{
+			if(i > 0) {
+				str = str + " or ";
+			}
+		    str = str + "theme='"+theme[i] +"'";
+		}
+		
+		String sql = "select * from all5 where (" + str +") ORDER BY dt ASC"; 
+		List<Map<String, Object>> dbList = jdbcTemplate.queryForList(sql);
+		List<All5Dto> list = new ArrayList<>();
+		for (Map<String, Object> db5 : dbList) {
+			list.add(new All5Dto(
+					(int) db5.get("id"),
+					(Date) db5.get("dt"),
+					(Time) db5.get("starttime"),
+					(String) db5.get("theme"),
+					(String) db5.get("content"),
+					(String) db5.get("link")
+					));
+		}
+		return list;
+	
+	}	
+	
+	
+	
 	
 //	//検索文。idから検索
 	public List<All5Dto> searchByid(int id) {

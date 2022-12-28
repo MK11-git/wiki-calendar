@@ -2,6 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
   <head>
     <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=0.5, minimum-scale=0.5, user-scalable=yes">
     <title>ウィキカレ!</title>
 
 
@@ -13,15 +14,15 @@
 
   </head>
   <body>
-  <h1 id="hh1">ウィキカレンダー
+  <h1 id="hh1">ウィキカレンダーローカル
   </h1>
   
 <form action="/" method="get" >
 <input class="submit" type="submit" value="ホーム(ALL)" /></form>
-<br/>
+<br/> <!--/*
   <input class="submit" type="button" onclick="test();" value="最下部へ移動"><br/>
   
-    <br/><br/>
+    <br/><br/>*/-->
   <a class="moji1">TODAY:</a><!--/*<span th:text="${new java.util.Date().toString()}"></span> */-->
    <!--/*<span th:text="${new java.util.Date().toString('yyyy/MM/dd')}"></span>*/-->
   <span class="moji2" th:text="${#calendars.format(#calendars.createNowForTimeZone('Asia/Tokyo'), 'yyyy/MM/dd')}"></span>
@@ -32,8 +33,6 @@
   
     
 
-    
-    <br/>
     
     
         <!--/*<table id="table1">
@@ -59,7 +58,6 @@
     
     
     
-        <br/>
     <br/>
     
     
@@ -68,13 +66,14 @@
       
       <tr th:each="list : ${DbList}">
         <td id="table3td1" noWrap vAlign="middle" th:text="${#dates.format(list.dt, 'M/d')}"></td>
-        <td noWrap><a id="theme" th:text="${list.theme}"></a><a>　　</a>
-        <a>id:</a><a th:href="@{/update?id={id2}(id2=${list.id})}"><span th:text="${list.id}"></span></a>
+        <td noWrap style="max-width: 750px;overflow:hidden;"><a id="theme" th:text="${list.theme}"></a><a>　</a>
+        <a style="color:gray">時間:</a><a style="color:gray" th:text="${list.starttime}"></a><a>～</a><a>　</a>
+        <a style="color:gray">id:</a><a style="color:gray;" th:href="@{/update?id={id2}(id2=${list.id})}"><span th:text="${list.id}"></span></a>
        
-        <a>　　</a><a>時間:</a><a th:text="${list.starttime}"></a><a>～</a><br/>
-        <a>　　　</a><a th:text="${list.content}"></a>
+        <br/>
+        <a>　　</a><a style="font-size:25px;color:rgb(2, 0, 70)" th:text="${list.content}"></a>
         <span th:if="${list.link == null}"></span>
-        <span th:unless="${list.link == null}"><br/><a>　　　</a><a>Link:</a><a  th:href="@{${list.link}}"><span th:text="${list.link}" ></span></a>
+        <span th:unless="${list.link == null}"><br/><a>　　　　　　　</a><a style="color:gray">Link:</a><a style="color:gray;text-decoration:none" th:href="@{${list.link}}"><span th:text="${list.link}" ></span></a>
         </span>
         </td>
                 
@@ -97,22 +96,13 @@
     
     
     
-<h2 class="hh2">本日以降の日程を100件まで表示中。全件表示するには、「全期間で表示」をご利用ください。</h2>
+<h2 class="hh2">本日以降の日程を50件まで表示中。全件表示するには、「全期間で表示」をご利用ください。</h2>
 <h2 class="hh2">idの番号を押すと、『更新』や『削除』を行なえます。</h2>
 
 
 <h2 class="hh21">※上記のスケジュールは、編集参加者によって登録されたデータです。正しくは、公式の発表をご確認ください。</h2>
 
 <br/><br/>
-
-<!--/*
-<form action="/509" method="post">
-id：<input type="text" name="id" size="10" />
-<input type="submit" value="削除➡/509" /></form>
-
-<br/>
-*/-->
-
 
 
 <br/>
@@ -123,35 +113,26 @@ id：<input type="text" name="id" size="10" />
 
     
 <h2 class="subtitle">テーマ選択</h2>
+<div class="hh2">チェックボックスまたは、テキストボックスから選択してください。複数選択可能。</div>
+
 <form method="get" action="/ca" >
     <div class="inline_box">
 	<div class="select" th:each="list1 : ${DbList1}">
-    <input type="checkbox" name="theme" th:value="${list1.theme}" th:text="${list1.theme}">
+    <input type="checkbox" th:id="${list1.theme}" name="theme" th:value="${list1.theme}">
+    <label th:text="${list1.theme}" th:for="${list1.theme}"></label>
     </div>
     </div>
-	<div class="hh22">(複数選択可能)</div><p><input class="submit" type="submit" value="検索"></p>
+    <input class="table2th" type="text" name="theme" list="example"/>
+    <input class="table2th" type="text" name="theme" list="example"/>
+    <input class="table2th" type="text" name="theme" list="example"/>
+	<p><input style="width:auto" class="submit" type="submit" value="カレンダーを表示"></p>
+<input class="submit" type="submit" formaction="/a" value="全期間で表示">
 </form>
 
 
 
 
 <br/>
-
-<br/>
-<h2 class="subtitle">全期間表示</h2>
-<form method="get" action="/a">
-<p>
-<select class="option" name="theme" required>
-<option class="table2th" value="">選択してください</option>
-<div th:each="list1 : ${DbList1}">
-<option th:text="${list1.theme}"></option>
-</div >
-</select>
-<input class="submit" type="submit" value="全期間で表示">
-</p>
-</form>
-
-
 
 <br/>
 <br/> 
@@ -160,22 +141,39 @@ id：<input type="text" name="id" size="10" />
  <form action="/i" method="post" >
 <table class="table2">
       <tr class="tr1">
-        <th>日付*</th>
+        <th>日付<a style="color:red;">*</a></th>
         <th>開始時間</th>
-        <th>テーマ*</th>
-        <th>内容(30文字以内)</th>
-        <th>Link</th>
+        <th>テーマ(15文字以内)<a style="color:red;">*</a></th>
       </tr>
  <tr class="tr1">
 <th><input class="table2th" type="date" name="dt" th:value="${#calendars.format(#calendars.createNowForTimeZone('Asia/Tokyo'), 'yyyy-MM-dd')}"></th>
 <th><input class="table2th" type="time" name="starttime"></th>
-<th><input class="table2th" type="text" name="theme"/></th>
+<th><input class="table2th" type="text" name="theme" list="example"/>
+<datalist id="example">
+<div th:each="list1 : ${DbList1}">
+<option th:text="${list1.theme}"></option>
+</div >
+</datalist>
+</th>
+
+
+</table>
+
+<table class="table2">
+</tr>
+      <tr class="tr1">
+        <th>内容(30文字以内)</th>
+        <th>Link</th>
+      </tr>
+       <tr class="tr1">
 <th><input class="table2th" type="text" name="content"></th>
 <th><input class="table2th" type="text" name="link"></th>
 </tr>
 </table>
+
+
 <h2 class="hh21">
-※日付とテーマは、必須項目です。</h2>
+※日付とテーマは、必須項目です。新規テーマも登録可能です。</h2>
 <h2 class="hh21">
 ※Linkを記入する場合は、httpなどから始まり、なるべく一次情報のurlを記載ください。</h2>
 <input class="submit"  type="submit" value="送信" />
@@ -184,6 +182,7 @@ id：<input type="text" name="id" size="10" />
 
 
     
+<br/><br/>
 
 
 
@@ -215,7 +214,15 @@ id：<input type="text" name="id" size="10" />
 
 <h2 class="hh21">
 ※編集機能、または本サービスは予告なく停止・廃止する場合がございます。</h2>
-
+ <footer>
+ <div style="margin:auto;  padding:3rem 1.5rem;">アクセスカウンター
+<nobr><table border="0" cellspacing="0" cellpadding="0"><tbody><tr><td><a href="https://www.free-counter.jp/"><img src="https://www.f-counter.net/ani1/61/1672122843/" alt="アクセスカウンター" border="0" style="margin:0px; padding:0px; border:0px; vertical-align:bottom"></a></td>
+<td><a href="https://www.free-counter.jp/"><img src="https://www.f-counter.net/ani2/61/1672122843/" alt="アクセスカウンター" border="0" style="margin:0px; padding:0px; border:0px; vertical-align:bottom"></a></td></tr></tbody></table></nobr>
+</div>
+        <!--*<a class="privacy-policy-link" href="">プライバシーポリシー</a>*/--><a>©2022</a>
+        <a class="site-name" href="http://wiki-calendar/" rel="home">ウィキカレンダー</a>
+    </div>
+ </footer>
  
     <!--/*<script th:src="@{/js/test.js}"></script> */-->
     <script type="text/javascript" th:src="@{/js/jsfile.js}"></script>

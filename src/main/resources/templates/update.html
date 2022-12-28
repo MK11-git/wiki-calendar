@@ -14,22 +14,26 @@
     
 
 <h2 class="subtitle">編集登録</h2>
+
  <form action="/update1" method="post" >
+ 
+ <div th:each="list : ${DbList}">
+<a style="font-weight:600;font-size:20px;">id　　：<input type="hidden" name="id" th:value="${list.id}" th:text="${list.id}"></a>
+ <br/>
+<a style="font-weight:600;font-size:20px;">テーマ：<input type="hidden" name="theme" th:value="${list.theme}" th:text="${list.theme}"></a>
+ </div>
+ <br/>
  <table class="table2">
       <tr>
-        <th>id</th>
         <th>日付*</th>
         <th>開始時間</th>
-        <th>テーマ</th>
         <th>内容(30文字以内)</th>
         <th>Link</th>
       </tr>
  <tr th:each="list : ${DbList}">
- <th><input class="table2th" type="hidden" name="id" th:value="${list.id}" th:text="${list.id}"></th>
  <th><input class="table2th" type="date" name="dt" th:value="${list.dt}"></th>
  <th><input class="table2th" type="time" name="starttime" th:value="${list.starttime}"></th>
- <th><input class="table2th" type="hidden" name="theme" th:value="${list.theme}" th:text="${list.theme}"></th>
- <th><input class="table2th" type="text" name="content" th:value="${list.content}" /></th>
+<th><input class="table2th" type="text" name="content" th:value="${list.content}" /></th>
  <th><input class="table2th" type="text" name="link" th:value="${list.link}"/></th>
  </tr>
  </table>
@@ -41,10 +45,14 @@
 
 <br/><br/>
 <form action="/d" method="post"  th:each="list : ${DbList}">
-id：<input type="hidden" name="id" th:value="${list.id}" th:text="${list.id}">
+<a style="font-weight:600;">id：<input type="hidden" name="id" th:value="${list.id}" th:text="${list.id}"></a>
 <input type="hidden" name="theme" th:value="${list.theme}">
-<input class="submit1" type="submit" value="削除" />　(一度押すと、このレコード1件は完全に削除されます。)
+<input style="width:auto" class="submit1" type="submit" th:value="削除" /><br/>(一度押すと、このレコード1件は完全に削除されます。)
 </form>
+
+<br/>
+<br/>
+<a>更新や削除を行なうと</a><a th:each="list : ${DbList}" th:text="${'『'+list.theme+'』の全期間表示に遷移します。'}"></a>
 
 <br/>
 

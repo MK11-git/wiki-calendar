@@ -63,19 +63,29 @@ public class MainController {
 		return "test507.html";
 	}
 	
-
+//
+//	//theme全期間検索
+//	@GetMapping("/a")
+//	public String write510(@RequestParam String theme,Model model) {
+////		dbRepository.searchBytheme(theme);
+//		List<All5Dto> list = dbRepository.searchBythemeall(theme);
+//		model.addAttribute("DbList",list);
+//		List<All5Dto1> list1 = dbRepository.getAll16();
+//		model.addAttribute("DbList1",list1);
+//		return "test507.html";
+//	}
 	//theme全期間検索
 	@GetMapping("/a")
-	public String write510(@RequestParam String theme,Model model) {
+	public String write510(@RequestParam String[] theme,Model model) {
 //		dbRepository.searchBytheme(theme);
-		List<All5Dto> list = dbRepository.searchBythemeall(theme);
+		List<All5Dto> list = dbRepository.searchBythemeall2(theme);
 		model.addAttribute("DbList",list);
 		List<All5Dto1> list1 = dbRepository.getAll16();
 		model.addAttribute("DbList1",list1);
 		return "test507.html";
 	}
 	
-	//複数theme検索
+	//複数theme検索post
 	@PostMapping("/ca-1")
 	public String write510_1(@RequestParam String[] theme,Model model) {
 //		dbRepository.searchBytheme(theme);
@@ -278,3 +288,7 @@ public class MainController {
 	
 
 }
+
+
+
+
