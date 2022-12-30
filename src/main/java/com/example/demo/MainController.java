@@ -42,11 +42,11 @@ public class MainController {
 	
 	
     
-	@GetMapping("/555")
-	public String write2(Model model) {
-		return "redirect:/";
-	}
-	
+//	@GetMapping("/555")
+//	public String write2(Model model) {
+//		return "redirect:/";
+//	}
+//	
 
 	
 	
