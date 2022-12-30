@@ -1,8 +1,6 @@
 package com.example.demo;
 
 import java.sql.Date;
-import java.sql.Time;
-import java.text.SimpleDateFormat;
 import java.util.List;
 
 import org.springframework.stereotype.Controller;
@@ -133,33 +131,33 @@ public class MainController {
 //		model.addAttribute("DbList",list);
 //		return "test507.html";
 //	}
-	
-	//INSERT文
-	@PostMapping("/515")
-	public String write515(@RequestParam Date dt,Time starttime,Model model) {
-		dbRepository.insertById1(dt,starttime);
-		List<All5Dto> list = dbRepository.getAll();
-		model.addAttribute("DbList",list);
-		List<All5Dto1> list1 = dbRepository.getAll16();
-		model.addAttribute("DbList1",list1);
-		return "test507.html";
-	}
-	
-	
-	//INSERT文
-	@PostMapping("/515-1")
-	public String write515_1(@RequestParam Date dt,String theme,Model model) {
-		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-		String strDate = dateFormat.format(dt);
-		
-		dbRepository.insertById1(strDate,theme);
-		List<All5Dto> list = dbRepository.getAll();
-		model.addAttribute("DbList",list);
-		List<All5Dto1> list1 = dbRepository.getAll16();
-		model.addAttribute("DbList1",list1);
-		return "test507.html";
-	}
-	
+//	
+//	//INSERT文
+//	@PostMapping("/515")
+//	public String write515(@RequestParam Date dt,Time starttime,Model model) {
+//		dbRepository.insertById1(dt,starttime);
+//		List<All5Dto> list = dbRepository.getAll();
+//		model.addAttribute("DbList",list);
+//		List<All5Dto1> list1 = dbRepository.getAll16();
+//		model.addAttribute("DbList1",list1);
+//		return "test507.html";
+//	}
+//	
+//	
+//	//INSERT文
+//	@PostMapping("/515-1")
+//	public String write515_1(@RequestParam Date dt,String theme,Model model) {
+//		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+//		String strDate = dateFormat.format(dt);
+//		
+//		dbRepository.insertById1(strDate,theme);
+//		List<All5Dto> list = dbRepository.getAll();
+//		model.addAttribute("DbList",list);
+//		List<All5Dto1> list1 = dbRepository.getAll16();
+//		model.addAttribute("DbList1",list1);
+//		return "test507.html";
+//	}
+//	
 	
 //	//INSERT文3startなし
 //	@PostMapping("/513")
@@ -195,23 +193,28 @@ public class MainController {
 	
 	
 	
-
-	//INSERT文3
-	@PostMapping("/513")
-	public String write513(@RequestParam Date dt,Time starttime,String theme,String content,String link,Model model) {
-		dbRepository.insert3(dt,starttime,theme,content,link);  
-		List<All5Dto> list = dbRepository.getAll();
-		model.addAttribute("DbList",list);
-		List<All5Dto1> list1 = dbRepository.getAll16();
-		model.addAttribute("DbList1",list1);
-		return "test507.html";
-	}
+//
+//	//INSERT文3
+//	@PostMapping("/513")
+//	public String write513(@RequestParam Date dt,Time starttime,String theme,String content,String link,Model model) {
+//		dbRepository.insert3(dt,starttime,theme,content,link);  
+//		List<All5Dto> list = dbRepository.getAll();
+//		model.addAttribute("DbList",list);
+//		List<All5Dto1> list1 = dbRepository.getAll16();
+//		model.addAttribute("DbList1",list1);
+//		return "test507.html";
+//	}
+//	
+	
+	
+	
 	//INSERT文3
 	@PostMapping("/i")
 	public String write513_1(@RequestParam Date dt,String starttime,String theme,String content,String link,Model model) {
 //		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 //		String strDate = dateFormat.format(dt);
-		String strtime = starttime +":00";
+//		String strtime = starttime +":00";
+		String strtime = starttime;
 
 		dbRepository.insert3(dt,strtime,theme,content,link);  
 		List<All5Dto> list = dbRepository.getAll();
@@ -258,6 +261,8 @@ public class MainController {
 	public String write19update(@RequestParam int id,Model model) {
 		List<All5Dto> list = dbRepository.searchByid(id);
 		model.addAttribute("DbList",list);
+		List<All5Dto1> list1 = dbRepository.getAll16();
+		model.addAttribute("DbList1",list1);
 		
 		
 		
