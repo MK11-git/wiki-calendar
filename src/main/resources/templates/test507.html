@@ -72,8 +72,8 @@
        
         <br/>
         <a>　　</a><a style="font-size:25px;color:rgb(2, 0, 70)" th:text="${list.content}"></a>
-        <span th:if="${list.link == null}"></span>
-        <span th:unless="${list.link == null}"><br/><a>　　　　　　　</a><a style="color:gray">Link:</a><a style="color:gray;text-decoration:none" th:href="@{${list.link}}"><span th:text="${list.link}" ></span></a>
+         <!--/*<span th:if="${!#lists.isEmpty(list.link)}"></span>th:unless="${!#lists.isEmpty(list.link)*/-->
+        <span ><br/><a>　　　　　　　</a><a style="color:gray">Link:</a><a style="color:gray;text-decoration:none" th:href="@{${list.link}}"><span th:text="${list.link}" ></span></a>
         </span>
         </td>
                 
