@@ -227,7 +227,11 @@ public class MainController {
 		String strtime = starttime;
 
 		dbRepository.insert3(dt, strtime, theme, content, link);
-		List<All5Dto> list = dbRepository.getAll();
+//		List<All5Dto> list = dbRepository.getAll();
+//		model.addAttribute("DbList", list);
+		String[] theme1 = new String[1];
+		theme1[0] = theme;
+		List<All5Dto> list = dbRepository.searchBythemeall2(theme1);
 		model.addAttribute("DbList", list);
 		List<All5Dto1> list1 = dbRepository.getAll16();
 		model.addAttribute("DbList1", list1);

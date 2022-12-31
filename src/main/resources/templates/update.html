@@ -15,7 +15,7 @@
 
 
 
-	<h2 class="subtitle">編集登録</h2>
+	<h2 class="subtitle">編集する</h2>
 
 	<form action="/update1" method="post">
 
@@ -23,9 +23,11 @@
 			<a style="font-weight:600;font-size:20px;">id　　：<input type="hidden" name="id" th:value="${list.id}"
 					th:text="${list.id}"></a>
 			<br />
+			<br />
 			<a style="font-weight:600;font-size:20px;">テーマ：<input type="hidden" name="theme" th:value="${list.theme}"
 					th:text="${list.theme}"></a>
 		</div>
+		<br />
 		<br />
 		<table class="table2">
 			<tr>
@@ -43,21 +45,24 @@
 		</table>
 		<input class="submit" type="submit" value="更新" />
 	</form>
+	<p th:each="list : ${DbList}" th:text="${'更新を押すと、　『'+list.theme+'』　の全期間表示に遷移します。'}"></p>
+
 
 	<br />
 
 
 	<br /><br />
+	<h2 class="subtitle">削除する</h2>
 	<form action="/d" method="post" th:each="list : ${DbList}">
 		<a style="font-weight:600;">id：<input type="hidden" name="id" th:value="${list.id}" th:text="${list.id}"></a>
 		<input type="hidden" name="theme" th:value="${list.theme}">
 		<input style="width:auto" class="submit1" type="submit" th:value="削除" /><br />(一度押すと、このレコード1件は完全に削除されます。)
 	</form>
+	<p th:each="list : ${DbList}" th:text="${'削除を押すと、　『'+list.theme+'』　の全期間表示に遷移します。'}"></p>
+
 
 	<br />
 	<br />
-	<a>更新や削除を行なうと</a><a th:each="list : ${DbList}" th:text="${'『'+list.theme+'』の全期間表示に遷移します。'}"></a>
-
 	<br />
 
 	<br />
@@ -72,8 +77,8 @@
 	<br />
 
 
-	<h2 class="subtitle">コピー登録</h2>
-
+	<h2 class="subtitle">コピー登録する</h2>
+	<h2 class="hh2">似た内容をつづけて登録したいときにご利用ください。</h2>
 
 	<form action="/i" method="post">
 		<div th:each="list : ${DbList}">
@@ -83,15 +88,12 @@
 					<th>開始時間</th>
 					<th>テーマ(15文字以内)<a style="color:red;">*</a></th>
 				</tr>
-
 				<tr class="tr1">
 					<th><input class="table2th" type="date" name="dt" th:value="${list.dt}"></th>
 					<th><input class="table2th" type="time" name="starttime" th:value="${list.starttime}"></th>
 					<th><input class="table2th" type="text" name="theme" list="example" th:value="${list.theme}" /></th>
 				</tr>
 			</table>
-
-
 			<table class="table2">
 				<tr class="tr1">
 					<th>内容(30文字以内)</th>
@@ -102,17 +104,16 @@
 					<th><input class="table2th" type="text" name="link" th:value="${list.link}"></th>
 				</tr>
 			</table>
-
 		</div>
-
-
-
 		<h2 class="hh21">
 			※日付とテーマは、必須項目です。新規テーマも登録可能です。</h2>
 		<h2 class="hh21">
 			※Linkを記入する場合は、httpなどから始まり、なるべく一次情報のurlを記載ください。</h2>
-		<input class="submit" type="submit" value="送信" />
-	</form><br />
+		<input class="submit" type="submit" value="登録" />
+	</form>
+	<p>登録を押すと、登録したテーマの全期間表示に遷移します。</p>
+	
+	<br />
 
 
 
