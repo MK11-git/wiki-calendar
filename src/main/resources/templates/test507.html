@@ -11,6 +11,8 @@
 
 	<!--/* src/main/resources/static/css/common.css を読み込む */-->
 	<link th:href="@{/css/common.css}" rel="styleSheet">
+	<link rel="icon" href="/img/favicon.ico">
+	<link rel="apple-touch-icon" href="/img/android-chrome-144x144.png">
 
 
 </head>
@@ -19,10 +21,28 @@
 	<h1 id="hh1">ウィキカレンダー
 	</h1>
 
+
+
+	<!--/*
+
+	<form action="/" method="get">
+		<input class="submit" type="submit" value="ホーム(ALL)" />
+	</form>
+	
+	*/-->
+	<br />
+
+	<br />
 	<form action="/" method="get">
 		<input class="submit" type="submit" value="ホーム(ALL)" />
 	</form>
 	<br />
+	<br />
+
+
+
+
+
 	<!--/*
   <input class="submit" type="button" onclick="test();" value="最下部へ移動"><br/>
   
@@ -43,8 +63,10 @@
 	</div>
 	</div>
 	*/-->
+	
+	
 	<div th:each="themestr : ${themeStr}">
-	<a class="moji1" th:text="${themestr}"></a>
+		<a class="moji1" th:text="${themestr}"></a>
 	</div>
 
 
@@ -88,7 +110,6 @@
 
 
 
-
 	<br />
 
 
@@ -96,8 +117,9 @@
 
 
 		<tr th:each="list : ${DbList}">
-			<td id="table3td1" noWrap vAlign="middle" th:text="${#dates.format(list.dt, 'M/d')}"></td>
-			<td noWrap style="max-width: 750px;overflow:hidden;"><a id="theme" th:text="${list.theme}"></a><a>　</a>
+			<td id="table3td1" noWrap vAlign="middle" th:text="${' '+ #dates.format(list.dt, 'M/d') + ' '}"></td>
+			<td noWrap style="max-width: 750px;overflow:hidden;">
+			    <a id="theme" th:text="${list.theme}" th:href="@{/ca?theme={theme2}(theme2=${list.theme})}"></a><a>　</a>
 				<a style="color:gray">時間:</a><a style="color:gray" th:text="${list.starttime}"></a><a>～</a><a>　</a>
 				<a style="color:gray">id:</a><a style="color:gray;" th:href="@{/update?id={id2}(id2=${list.id})}"><span
 						th:text="${list.id}"></span></a>
@@ -129,7 +151,7 @@
 
 
 
-	<h2 class="hh2">本日以降の日程を50件まで表示中。全件表示するには、「全期間で表示」をご利用ください。</h2>
+	<h2 class="hh2">本日以降の日程を50件まで表示できます。全件表示するには、「全期間で表示」をご利用ください。</h2>
 	<h2 class="hh2">idの番号を押すと、『更新』や『削除』、『コピー登録』を行なえます。</h2>
 
 
@@ -155,12 +177,18 @@
 				<label th:text="${list1.theme}" th:for="${list1.theme}"></label>
 			</div>
 		</div>
-		<a>検索して選ぶ:</a>
-		<input class="table2th" type="text" name="theme" list="example" />
-		<input class="table2th" type="text" name="theme" list="example" />
+		<a>検索して選ぶ:</a><br/>
+		<input class="table2th" type="text" name="theme" list="example" /><br/>
+		<input class="table2th" type="text" name="theme" list="example" /><br/>
 		<input class="table2th" type="text" name="theme" list="example" />
 		<p><input style="width:auto" class="submit" type="submit" value="カレンダーを表示"></p>
+
+
 		<input class="submit" type="submit" formaction="/a" value="全期間で表示">
+
+
+		<br />
+		<p class="balloon1-top">　表示後のURLをショートカットしておくと、便利!　</p>
 	</form>
 
 
@@ -213,9 +241,10 @@
 			※日付とテーマは、必須項目です。新規テーマも登録可能です。</h2>
 		<h2 class="hh21">
 			※Linkを記入する場合は、httpなどから始まり、なるべく一次情報のurlを記載ください。</h2>
-		<input class="submit" type="submit" value="登録" />
-	</form>
 	<p>登録を押すと、登録したテーマの全期間表示に遷移します。</p>
+		<input class="submit" type="submit" value="登録" />
+		<p class="balloon1-top" >　みんなと共有できる色々なジャンルを登録しよう!　</p>
+	</form>
 	<br />
 
 
@@ -225,11 +254,20 @@
 
 
 
-	<br /><br />
+	<br />
+	<!--/*
+	<div class="button_solid004">
+		<a href="/">ホーム(ALL)</a>
+	</div>
+	*/-->
+	
+	<br />
 	<form action="/" method="get">
 		<input class="submit" type="submit" value="ホーム(ALL)" />
 	</form>
-	<br /><br />
+	<br />
+	<br />
+	<br />
 
 	<!--/*
 <br/><br/>
@@ -252,6 +290,7 @@ id：<input type="text" name="id" size="10" />
 	<a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button"
 		data-show-count="false">Tweet</a>
 	<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
 
 	<h2 class="hh21">
 		※編集機能、または本サービスは予告なく停止・廃止する場合がございます。</h2>
