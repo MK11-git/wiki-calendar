@@ -1,6 +1,7 @@
 package com.example.demo;
 
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Controller;
@@ -59,6 +60,11 @@ public class MainController {
 		model.addAttribute("DbList4", list02);
 		List<All5Dto1> list1 = dbRepository.getAll16();
 		model.addAttribute("DbList1", list1);
+		model.addAttribute("continents", theme);
+		List<String> list5 = new ArrayList<String>();
+				list5.add(theme);
+		model.addAttribute("DbList5", list5);
+
 		return "test507.html";
 	}
 
@@ -77,28 +83,28 @@ public class MainController {
 	@GetMapping("/a")
 	public String write510(@RequestParam String[] theme, Model model) {
 		//		dbRepository.searchBytheme(theme);
-//		String themeStr = "";
-//		list themeStr1 ;
-//		for (int i = 0; i < theme.length; i++) {
-//			if(theme[i] =="") {}
-//			else {
-//			themeStr1 = theme[i];
-//			}
-//		}
-//		
-//		if (theme.length < 6) {
-//			for (int i = 0; i < theme.length; i++) {
-//
-//				themeStr = theme[i] + "　";
-//			}
-//			themeStr = themeStr + "を表示中";
-//		}
-//		if (theme.length > 5) {
-//			int n = theme.length - 5;
-//			themeStr = theme[0] + "　" + theme[1] + "　" + theme[2] + "　" + theme[3] + "　" + theme[4] + "...他" + n
-//					+ "テーマを表示中";
-//		}
-//		model.addAttribute("themeStr", themeStr);
+		//		String themeStr = "";
+		//		list themeStr1 ;
+		//		for (int i = 0; i < theme.length; i++) {
+		//			if(theme[i] =="") {}
+		//			else {
+		//			themeStr1 = theme[i];
+		//			}
+		//		}
+		//		
+		//		if (theme.length < 6) {
+		//			for (int i = 0; i < theme.length; i++) {
+		//
+		//				themeStr = theme[i] + "　";
+		//			}
+		//			themeStr = themeStr + "を表示中";
+		//		}
+		//		if (theme.length > 5) {
+		//			int n = theme.length - 5;
+		//			themeStr = theme[0] + "　" + theme[1] + "　" + theme[2] + "　" + theme[3] + "　" + theme[4] + "...他" + n
+		//					+ "テーマを表示中";
+		//		}
+		//		model.addAttribute("themeStr", themeStr);
 
 		List<All5Dto> list = dbRepository.searchBythemeall2(theme);
 		model.addAttribute("DbList", list);
@@ -110,6 +116,27 @@ public class MainController {
 		model.addAttribute("DbList4", list4);
 		List<All5Dto1> list1 = dbRepository.getAll16();
 		model.addAttribute("DbList1", list1);
+
+		//		String str = "";
+		//		for(int i = 0; i < theme.length; i++)
+		//		{
+		//			if(i > 0) {
+		//				str = str+"&";
+		//			}
+		//		    str = str+"theme="+theme[i] ;
+		//		}
+		model.addAttribute("continents", theme);
+
+		List<String> list5 = new ArrayList<String>();
+		for (int i = 0; i < theme.length; i++) {
+			if (theme[i] != "") {
+				list5.add(theme[i]);
+			}
+		}
+		model.addAttribute("DbList5", list5);
+
+		//		model.addAttribute("str", theme);
+
 		return "test507.html";
 	}
 
@@ -134,6 +161,25 @@ public class MainController {
 		model.addAttribute("DbList3", list3);
 		List<All5Dto1> list1 = dbRepository.getAll16();
 		model.addAttribute("DbList1", list1);
+		String str = "";
+		for (int i = 0; i < theme.length; i++) {
+			if (i > 0) {
+				str = str + "&";
+			}
+			str = str + "theme=" + theme[i];
+		}
+		model.addAttribute("continents", theme);
+
+		model.addAttribute("str", str);
+
+		List<String> list5 = new ArrayList<String>();
+		for (int i = 0; i < theme.length; i++) {
+			if (theme[i] != "") {
+				list5.add(theme[i]);
+			}
+		}
+		model.addAttribute("DbList5", list5);
+
 		return "test507.html";
 	}
 
@@ -243,8 +289,8 @@ public class MainController {
 		String strtime = starttime;
 
 		dbRepository.insert3(dt, strtime, theme, content, link);
-//		List<All5Dto> list = dbRepository.getAll();
-//		model.addAttribute("DbList", list);
+		//		List<All5Dto> list = dbRepository.getAll();
+		//		model.addAttribute("DbList", list);
 		String[] theme1 = new String[1];
 		theme1[0] = theme;
 		List<All5Dto> list = dbRepository.searchBythemeall2(theme1);
@@ -257,6 +303,15 @@ public class MainController {
 		model.addAttribute("DbList4", list4);
 		List<All5Dto1> list1 = dbRepository.getAll16();
 		model.addAttribute("DbList1", list1);
+		
+		
+		model.addAttribute("continents", theme);
+		List<String> list5 = new ArrayList<String>();
+				list5.add(theme);
+		model.addAttribute("DbList5", list5);
+
+		
+		
 		return "test507.html";
 	}
 
@@ -312,10 +367,16 @@ public class MainController {
 		model.addAttribute("DbList3", list01);
 		List<All5Dto> list02 = dbRepository.searchBythemeall02(theme);
 		model.addAttribute("DbList4", list02);
-		
-		
+
 		List<All5Dto1> list1 = dbRepository.getAll16();
 		model.addAttribute("DbList1", list1);
+		
+		model.addAttribute("continents", theme);
+		List<String> list5 = new ArrayList<String>();
+				list5.add(theme);
+		model.addAttribute("DbList5", list5);
+
+		
 		//		model.addAttribute("DbList",list);
 
 		return "test507.html";

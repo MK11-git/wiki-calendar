@@ -154,6 +154,13 @@ body {
 .hh22{
 	 color:rgb(128, 128, 128);
 }
+
+.hh23{
+	 font-size:16px;
+	 font-weight:700;
+	 color:rgb(26, 26, 26);
+}
+
 .moji1{
 	 font-size:14px;
 	 font-weight:400;
@@ -247,6 +254,7 @@ label{
   max-width: 100%;
   color: #555;
   font-size: 16px;
+  font-weight: 700;
   background: #e0edff;
 }
 
@@ -323,6 +331,71 @@ input[type="submit"]:hover{
     border-bottom: solid 2px #1d7fde;
     transform: translateY(3px);
 }
+
+
+
+
+
+
+
+input[type="submit1"]{
+    position: relative;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    /*margin: 0 auto;*/
+    max-width: 650px;
+    padding: 10px 25px;
+    color: #FFF;
+    transition: 0.3s ease-in-out;
+    font-weight: 900;
+    background: #6bb6ff;
+    border-radius: 8px;
+    border-bottom: solid 5px #1d7fde;
+}
+
+
+input[type="submit1"]:hover{
+    border-bottom: solid 2px #1d7fde;
+    transform: translateY(3px);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -471,6 +544,13 @@ input[type="submit"]:hover{
 .hh22{
 	 color:rgb(128, 128, 128);
 }
+
+.hh23{
+	 font-size:16px;
+	 font-weight:700;
+	 color:rgb(26, 26, 26);
+}
+
 .moji1{
 	 font-size:14px;
 	 font-weight:400;
@@ -530,7 +610,6 @@ input[type=checkbox]{
 }
 	
 }
-
 
     
     

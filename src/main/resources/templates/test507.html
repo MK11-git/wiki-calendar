@@ -30,11 +30,6 @@
 	</form>
 	
 	*/-->
-	<form action="/" method="get">
-		<input class="submit" type="submit" value="ホーム(ALL)" />
-	</form>
-	<br />
-	<br />
 
 
 
@@ -60,15 +55,43 @@
 	</div>
 	</div>
 	*/-->
-	
-	
+
+
 	<div th:each="themestr : ${themeStr}">
 		<a class="moji1" th:text="${themestr}"></a>
 	</div>
 
 
+	<div style="overflow:hidden;">
+		<a class="hh23">選択中のカレンダー:</a>
 
 
+		<a class="hh23" th:each="continent : ${continents}" th:text="${continent + '　 '}"></a>
+
+	</div>
+
+
+
+
+	<div style="display:inline-flex">
+		<form action="/" method="get" style="display: flex;">
+			<input class="submit" type="submit" value="ホーム(ALL)" />
+		</form>
+		<form action="/a" method="get" style="display: flex;">
+			<div th:each="str : ${DbList5}">
+				<input type="hidden" name="theme" th:value="${str}">
+			</div>
+			<input type="hidden" name="theme" value="">
+			<input type="hidden" name="theme" value="">
+			<input class="submit" type="submit" formaction="/ca" value="今日以降に切替" />
+			<input class="submit" type="submit" value="全期間に切替" />
+		</form>
+	</div>
+
+	</br>
+
+
+	<br />
 
 
 	<a class="moji1">TODAY:</a>
@@ -79,9 +102,24 @@
 
 	<!--/* <h1><a href="https://www.google.com/">google</a></h1>   yyyy年MM月dd日 (w) HH時mm分ss秒*/-->
 
+	<!--/*
 
-<div class="box" id="makeImg"><div class="boxspan">赤:1週間以内</div>
-</div>
+<ul th:each="continet : ${continents}">
+    <li th:text="${continent}"></li>
+</ul>
+*/-->
+	　　
+
+
+
+	<div class="box" id="makeImg">
+		<div class="boxspan">赤:1週間以内</div>
+	</div>
+
+
+
+
+
 
 
 
@@ -103,15 +141,15 @@
                 
       </tr>
     </table>*/-->
-    
-    
-    	<table id="table3">
+
+
+	<table id="table3">
 
 
 		<tr th:each="list : ${DbList4}">
 			<td id="table3td1" noWrap vAlign="middle" th:text="${' '+ #dates.format(list.dt, 'M/d') + ' '}"></td>
 			<td noWrap style="max-width: 750px;overflow:hidden;">
-			    <a id="theme" th:text="${list.theme}" th:href="@{/ca?theme={theme2}(theme2=${list.theme})}"></a><a>　</a>
+				<a id="theme" th:text="${list.theme}" th:href="@{/ca?theme={theme2}(theme2=${list.theme})}"></a><a>　</a>
 				<a style="color:gray">時間:</a><a style="color:gray" th:text="${list.starttime}"></a><a>～</a><a>　</a>
 				<a style="color:gray">id:</a><a style="color:gray;" th:href="@{/update?id={id2}(id2=${list.id})}"><span
 						th:text="${list.id}"></span></a>
@@ -134,7 +172,7 @@
 		<tr th:each="list : ${DbList3}">
 			<td id="table3td11" noWrap vAlign="middle" th:text="${' '+ #dates.format(list.dt, 'M/d') + ' '}"></td>
 			<td noWrap style="max-width: 750px;overflow:hidden;">
-			    <a id="theme" th:text="${list.theme}" th:href="@{/ca?theme={theme2}(theme2=${list.theme})}"></a><a>　</a>
+				<a id="theme" th:text="${list.theme}" th:href="@{/ca?theme={theme2}(theme2=${list.theme})}"></a><a>　</a>
 				<a style="color:gray">時間:</a><a style="color:gray" th:text="${list.starttime}"></a><a>～</a><a>　</a>
 				<a style="color:gray">id:</a><a style="color:gray;" th:href="@{/update?id={id2}(id2=${list.id})}"><span
 						th:text="${list.id}"></span></a>
@@ -157,7 +195,7 @@
 		<tr th:each="list : ${DbList}">
 			<td id="table3td1" noWrap vAlign="middle" th:text="${' '+ #dates.format(list.dt, 'M/d') + ' '}"></td>
 			<td noWrap style="max-width: 750px;overflow:hidden;">
-			    <a id="theme" th:text="${list.theme}" th:href="@{/ca?theme={theme2}(theme2=${list.theme})}"></a><a>　</a>
+				<a id="theme" th:text="${list.theme}" th:href="@{/ca?theme={theme2}(theme2=${list.theme})}"></a><a>　</a>
 				<a style="color:gray">時間:</a><a style="color:gray" th:text="${list.starttime}"></a><a>～</a><a>　</a>
 				<a style="color:gray">id:</a><a style="color:gray;" th:href="@{/update?id={id2}(id2=${list.id})}"><span
 						th:text="${list.id}"></span></a>
@@ -188,7 +226,7 @@
 
 
 
-	<h2 class="hh2">本日以降の日程を50件まで表示できます。全件表示するには、「全期間で表示」をご利用ください。</h2>
+	<h2 class="hh2">選択したカレンダーについて、本日以降の日程を50件まで表示できます。全件表示するには、「全期間で表示」をご利用ください。</h2>
 	<h2 class="hh2">idの番号を押すと、『更新』や『削除』、『コピー登録』を行なえます。</h2>
 
 
@@ -214,9 +252,9 @@
 				<label th:text="${list1.theme}" th:for="${list1.theme}"></label>
 			</div>
 		</div>
-		<a>検索して選ぶ:</a><br/>
-		<input class="table2th" type="text" name="theme" list="example" /><br/>
-		<input class="table2th" type="text" name="theme" list="example" /><br/>
+		<a>検索して選ぶ:</a><br />
+		<input class="table2th" type="text" name="theme" list="example" /><br />
+		<input class="table2th" type="text" name="theme" list="example" /><br />
 		<input class="table2th" type="text" name="theme" list="example" />
 		<p><input style="width:auto" class="submit" type="submit" value="カレンダーを表示"></p>
 
@@ -278,9 +316,9 @@
 			※日付とテーマは、必須項目です。新規テーマも登録可能です。</h2>
 		<h2 class="hh21">
 			※Linkを記入する場合は、httpなどから始まり、なるべく一次情報のurlを記載ください。</h2>
-	<p>登録を押すと、登録したテーマの全期間表示に遷移します。</p>
+		<p>登録を押すと、登録したテーマの全期間表示に遷移します。</p>
 		<input class="submit" type="submit" value="登録" />
-		<p class="balloon1-top" >　みんなと共有できる色々なジャンルを登録しよう!　</p>
+		<p class="balloon1-top">　みんなと共有できる色々なジャンルを登録しよう!　</p>
 	</form>
 	<br />
 
@@ -297,7 +335,7 @@
 		<a href="/">ホーム(ALL)</a>
 	</div>
 	*/-->
-	
+
 	<br />
 	<form action="/" method="get">
 		<input class="submit" type="submit" value="ホーム(ALL)" />
