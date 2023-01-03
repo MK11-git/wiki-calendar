@@ -104,6 +104,8 @@ body {
   font-family: "Nico Moji";
 	font-weight:700;
 	 color:rgb(0, 0, 255);
+	 color:inherit;
+	 text-decoration: none;
 	
 }
 .hh2{
