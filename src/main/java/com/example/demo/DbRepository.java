@@ -75,6 +75,19 @@ public class DbRepository {
 		return list1;
 	}
 	
+	public List<All5Dto1> getAll17(String strnot) {
+		String sql1 = "select distinct(theme) from all5 WHERE " + strnot +" ORDER BY theme ASC";
+		List<Map<String, Object>> dbList1 = jdbcTemplate.queryForList(sql1);
+		List<All5Dto1> list1 = new ArrayList<>();
+		for (Map<String, Object> db5 : dbList1) {
+			list1.add(new All5Dto1(
+					(String) db5.get("theme")
+					));
+		}
+		return list1;
+	}
+	
+	
 	
 	public List<All5Dto> getAll19() {
         long miliseconds = System.currentTimeMillis();
