@@ -22,6 +22,9 @@ public class MainController {
 		List<All5Dto> list = dbRepository.getAll();
 		model.addAttribute("DbList", list);
 
+		List<All5Dto> list3 = dbRepository.getAll3();
+		model.addAttribute("DbList3", list3);
+
 		List<All5Dto1> list1 = dbRepository.getAll16();
 		model.addAttribute("DbList1", list1);
 
@@ -49,6 +52,11 @@ public class MainController {
 		dbRepository.deleteById(id);
 		List<All5Dto> list = dbRepository.searchBythemeall(theme);
 		model.addAttribute("DbList", list);
+
+		List<All5Dto> list01 = dbRepository.searchBythemeall01(theme);
+		model.addAttribute("DbList3", list01);
+		List<All5Dto> list02 = dbRepository.searchBythemeall02(theme);
+		model.addAttribute("DbList4", list02);
 		List<All5Dto1> list1 = dbRepository.getAll16();
 		model.addAttribute("DbList1", list1);
 		return "test507.html";
@@ -94,6 +102,12 @@ public class MainController {
 
 		List<All5Dto> list = dbRepository.searchBythemeall2(theme);
 		model.addAttribute("DbList", list);
+
+		List<All5Dto> list3 = dbRepository.searchBythemeall21(theme);
+		model.addAttribute("DbList3", list3);
+
+		List<All5Dto> list4 = dbRepository.searchBythemeall22(theme);
+		model.addAttribute("DbList4", list4);
 		List<All5Dto1> list1 = dbRepository.getAll16();
 		model.addAttribute("DbList1", list1);
 		return "test507.html";
@@ -116,6 +130,8 @@ public class MainController {
 		//		dbRepository.searchBytheme(theme);
 		List<All5Dto> list = dbRepository.searchBytheme1(theme);
 		model.addAttribute("DbList", list);
+		List<All5Dto> list3 = dbRepository.searchBytheme11(theme);
+		model.addAttribute("DbList3", list3);
 		List<All5Dto1> list1 = dbRepository.getAll16();
 		model.addAttribute("DbList1", list1);
 		return "test507.html";
@@ -233,6 +249,12 @@ public class MainController {
 		theme1[0] = theme;
 		List<All5Dto> list = dbRepository.searchBythemeall2(theme1);
 		model.addAttribute("DbList", list);
+
+		List<All5Dto> list3 = dbRepository.searchBythemeall21(theme1);
+		model.addAttribute("DbList3", list3);
+
+		List<All5Dto> list4 = dbRepository.searchBythemeall22(theme1);
+		model.addAttribute("DbList4", list4);
 		List<All5Dto1> list1 = dbRepository.getAll16();
 		model.addAttribute("DbList1", list1);
 		return "test507.html";
@@ -286,6 +308,12 @@ public class MainController {
 		//		model.addAttribute("DbList",list);
 		List<All5Dto> list = dbRepository.searchBythemeall(theme);
 		model.addAttribute("DbList", list);
+		List<All5Dto> list01 = dbRepository.searchBythemeall01(theme);
+		model.addAttribute("DbList3", list01);
+		List<All5Dto> list02 = dbRepository.searchBythemeall02(theme);
+		model.addAttribute("DbList4", list02);
+		
+		
 		List<All5Dto1> list1 = dbRepository.getAll16();
 		model.addAttribute("DbList1", list1);
 		//		model.addAttribute("DbList",list);

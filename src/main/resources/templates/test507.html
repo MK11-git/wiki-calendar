@@ -80,7 +80,8 @@
 	<!--/* <h1><a href="https://www.google.com/">google</a></h1>   yyyy年MM月dd日 (w) HH時mm分ss秒*/-->
 
 
-
+<div class="box" id="makeImg"><div class="boxspan">赤:1週間以内</div>
+</div>
 
 
 
@@ -102,12 +103,52 @@
                 
       </tr>
     </table>*/-->
+    
+    
+    	<table id="table3">
+
+
+		<tr th:each="list : ${DbList4}">
+			<td id="table3td1" noWrap vAlign="middle" th:text="${' '+ #dates.format(list.dt, 'M/d') + ' '}"></td>
+			<td noWrap style="max-width: 750px;overflow:hidden;">
+			    <a id="theme" th:text="${list.theme}" th:href="@{/ca?theme={theme2}(theme2=${list.theme})}"></a><a>　</a>
+				<a style="color:gray">時間:</a><a style="color:gray" th:text="${list.starttime}"></a><a>～</a><a>　</a>
+				<a style="color:gray">id:</a><a style="color:gray;" th:href="@{/update?id={id2}(id2=${list.id})}"><span
+						th:text="${list.id}"></span></a>
+				<br />
+				<a>　　</a><a style="font-size:25px;color:rgb(2, 0, 70)" th:text="${list.content}"></a>
+				<!--/*<span th:if="${!#lists.isEmpty(list.link)}"></span>th:unless="${!#lists.isEmpty(list.link)*/-->
+				<span><br /><a>　　　　　　　</a><a style="color:gray">Link:</a><a style="color:gray;text-decoration:none"
+						th:href="@{${list.link}}"><span th:text="${list.link}"></span></a>
+				</span>
+			</td>
+
+		</tr>
+	</table>
 
 
 
+	<table id="table3">
 
 
-	<br />
+		<tr th:each="list : ${DbList3}">
+			<td id="table3td11" noWrap vAlign="middle" th:text="${' '+ #dates.format(list.dt, 'M/d') + ' '}"></td>
+			<td noWrap style="max-width: 750px;overflow:hidden;">
+			    <a id="theme" th:text="${list.theme}" th:href="@{/ca?theme={theme2}(theme2=${list.theme})}"></a><a>　</a>
+				<a style="color:gray">時間:</a><a style="color:gray" th:text="${list.starttime}"></a><a>～</a><a>　</a>
+				<a style="color:gray">id:</a><a style="color:gray;" th:href="@{/update?id={id2}(id2=${list.id})}"><span
+						th:text="${list.id}"></span></a>
+				<br />
+				<a>　　</a><a style="font-size:25px;color:rgb(2, 0, 70)" th:text="${list.content}"></a>
+				<!--/*<span th:if="${!#lists.isEmpty(list.link)}"></span>th:unless="${!#lists.isEmpty(list.link)*/-->
+				<span><br /><a>　　　　　　　</a><a style="color:gray">Link:</a><a style="color:gray;text-decoration:none"
+						th:href="@{${list.link}}"><span th:text="${list.link}"></span></a>
+				</span>
+			</td>
+
+		</tr>
+	</table>
+
 
 
 	<table id="table3">
@@ -120,7 +161,6 @@
 				<a style="color:gray">時間:</a><a style="color:gray" th:text="${list.starttime}"></a><a>～</a><a>　</a>
 				<a style="color:gray">id:</a><a style="color:gray;" th:href="@{/update?id={id2}(id2=${list.id})}"><span
 						th:text="${list.id}"></span></a>
-
 				<br />
 				<a>　　</a><a style="font-size:25px;color:rgb(2, 0, 70)" th:text="${list.content}"></a>
 				<!--/*<span th:if="${!#lists.isEmpty(list.link)}"></span>th:unless="${!#lists.isEmpty(list.link)*/-->

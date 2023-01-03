@@ -19,9 +19,11 @@ public class DbRepository {
 	private final JdbcTemplate jdbcTemplate;
 
 	public List<All5Dto> getAll() {
-        long miliseconds = System.currentTimeMillis();
-        Date date = new Date(miliseconds);
-		String sql = "select id,dt,starttime,theme,content,link from all5 WHERE dt >= '"+date+ "' ORDER BY dt ASC LIMIT 50"; //,dt,starttime,theme,content,link
+//        long miliseconds = System.currentTimeMillis();
+//        Date date = new Date(miliseconds);
+        
+        
+		String sql = "select id,dt,starttime,theme,content,link from all5 WHERE dt >= DATE_ADD(now(), INTERVAL 7 DAY) ORDER BY dt ASC,starttime ASC LIMIT 50"; //,dt,starttime,theme,content,link
 		List<Map<String, Object>> dbList = jdbcTemplate.queryForList(sql);
 		List<All5Dto> list = new ArrayList<>();
 		for (Map<String, Object> db5 : dbList) {
@@ -36,6 +38,27 @@ public class DbRepository {
 					));
 		}
 		return list;
+	}
+	public List<All5Dto> getAll3() {
+//      long miliseconds = System.currentTimeMillis();
+//      Date date = new Date(miliseconds);
+      
+      
+		String sql = "select id,dt,starttime,theme,content,link from all5 WHERE (dt > DATE_SUB(now(), INTERVAL 1 DAY) AND dt < DATE_ADD(now(), INTERVAL 7 DAY)) ORDER BY dt ASC,starttime ASC LIMIT 50"; //,dt,starttime,theme,content,link
+		List<Map<String, Object>> dbList = jdbcTemplate.queryForList(sql);
+		List<All5Dto> list3 = new ArrayList<>();
+		for (Map<String, Object> db5 : dbList) {
+			list3.add(new All5Dto(
+					(int) db5.get("id"),
+					(Date) db5.get("dt"),
+					(Time) db5.get("starttime"),    //null , 
+//					(SimpleDateFormat) db5.get("starttime"),
+					(String) db5.get("theme"),
+					(String) db5.get("content"),
+					(String) db5.get("link")
+					));
+		}
+		return list3;
 	}
 	
 	
@@ -76,40 +99,6 @@ public class DbRepository {
 	
 	
 	
-	
-	
-	
-	
-	
-//	//削除メソッド失敗。
-//	public List<All5Dto> deleteAll(DbAll5Bean rb) {
-//		String sql = "select id,dt,starttime,theme,content,link from all5"; //,dt,starttime,theme,content,link
-//  
-//
-////	    DbAll5Bean rb = new DbAll5Bean();
-//		int id = rb.getId();
-////		int id = model.rb.getId();
-//		String sql1 = "delete from all5 where id ="+ id;
-////		List<Map<String, Object>> dbList1 = 
-//				jdbcTemplate.queryForList(sql1);
-//		
-//		List<Map<String, Object>> dbList = jdbcTemplate.queryForList(sql);
-//		List<All5Dto> list = new ArrayList<>();
-//		for (Map<String, Object> db5 : dbList) {
-//			list.add(new All5Dto(
-//					(int) db5.get("id"),
-//					(Date) db5.get("dt"),
-//					(Time) db5.get("starttime"),    //null , 
-////					(SimpleDateFormat) db5.get("starttime"),
-//					(String) db5.get("theme"),
-//					(String) db5.get("content"),
-//					(String) db5.get("link")
-//					));
-//		}
-//		return list;
-//	}
-	
-	
 
 	//削除メソッド/509から受ける。
 	
@@ -118,10 +107,16 @@ public class DbRepository {
 	  }
 	
 	
+	
+	
+	
+	
+	
+	
 
 //	//検索文。
 	public List<All5Dto> searchBythemeall(String theme) {
-		String sql = "select * from all5 where theme='" + theme +"' ORDER BY dt ASC"; 
+		String sql = "select * from all5 where theme='" + theme +"' AND dt >= DATE_ADD(now(), INTERVAL 7 DAY) ORDER BY dt ASC,starttime ASC"; 
 		List<Map<String, Object>> dbList = jdbcTemplate.queryForList(sql);
 		List<All5Dto> list = new ArrayList<>();
 		for (Map<String, Object> db5 : dbList) {
@@ -137,6 +132,58 @@ public class DbRepository {
 		return list;
 	
 	}
+	
+	public List<All5Dto> searchBythemeall01(String theme) {
+		String sql = "select * from all5 where theme='" + theme +"' AND (dt > DATE_SUB(now(), INTERVAL 1 DAY) AND dt < DATE_ADD(now(), INTERVAL 7 DAY)) ORDER BY dt ASC,starttime ASC"; 
+		List<Map<String, Object>> dbList = jdbcTemplate.queryForList(sql);
+		List<All5Dto> list01 = new ArrayList<>();
+		for (Map<String, Object> db5 : dbList) {
+			list01.add(new All5Dto(
+					(int) db5.get("id"),
+					(Date) db5.get("dt"),
+					(Time) db5.get("starttime"),
+					(String) db5.get("theme"),
+					(String) db5.get("content"),
+					(String) db5.get("link")
+					));
+		}
+		return list01;
+	
+	}
+	
+	
+	public List<All5Dto> searchBythemeall02(String theme) {
+		String sql = "select * from all5 where theme='" + theme +"' AND dt <= DATE_SUB(now(), INTERVAL 1 DAY) ORDER BY dt ASC,starttime ASC"; 
+		List<Map<String, Object>> dbList = jdbcTemplate.queryForList(sql);
+		List<All5Dto> list02 = new ArrayList<>();
+		for (Map<String, Object> db5 : dbList) {
+			list02.add(new All5Dto(
+					(int) db5.get("id"),
+					(Date) db5.get("dt"),
+					(Time) db5.get("starttime"),
+					(String) db5.get("theme"),
+					(String) db5.get("content"),
+					(String) db5.get("link")
+					));
+		}
+		return list02;
+	
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 
@@ -150,10 +197,10 @@ public class DbRepository {
 			}
 		    str = str + "theme='"+theme[i] +"'";
 		}
-        long miliseconds = System.currentTimeMillis();
-        Date date = new Date(miliseconds);
+//        long miliseconds = System.currentTimeMillis();
+//        Date date = new Date(miliseconds);
 		
-		String sql = "select * from all5 where (" + str +") AND dt >='"+date+"' ORDER BY dt ASC"; 
+		String sql = "select * from all5 where (" + str +") AND dt >= DATE_ADD(now(), INTERVAL 7 DAY) ORDER BY dt ASC,starttime ASC"; 
 		List<Map<String, Object>> dbList = jdbcTemplate.queryForList(sql);
 		List<All5Dto> list = new ArrayList<>();
 		for (Map<String, Object> db5 : dbList) {
@@ -170,6 +217,50 @@ public class DbRepository {
 	
 	}
 	
+//	//検索文複数theme。list3返す。
+	public List<All5Dto> searchBytheme11(String[] theme) {
+		String str = "";
+		for(int i = 0; i < theme.length; i++)
+		{
+			if(i > 0) {
+				str = str + " or ";
+			}
+		    str = str + "theme='"+theme[i] +"'";
+		}
+//        long miliseconds = System.currentTimeMillis();
+//        Date date = new Date(miliseconds);
+		
+		String sql = "select * from all5 where (" + str +") AND (dt > DATE_SUB(now(), INTERVAL 1 DAY) AND dt < DATE_ADD(now(), INTERVAL 7 DAY)) ORDER BY dt ASC,starttime ASC"; 
+		List<Map<String, Object>> dbList = jdbcTemplate.queryForList(sql);
+		List<All5Dto> list3 = new ArrayList<>();
+		for (Map<String, Object> db5 : dbList) {
+			list3.add(new All5Dto(
+					(int) db5.get("id"),
+					(Date) db5.get("dt"),
+					(Time) db5.get("starttime"),
+					(String) db5.get("theme"),
+					(String) db5.get("content"),
+					(String) db5.get("link")
+					));
+		}
+		return list3;
+	
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 //	//検索文複数theme。
 	public List<All5Dto> searchBythemeall2(String[] theme) {
@@ -182,7 +273,7 @@ public class DbRepository {
 		    str = str + "theme='"+theme[i] +"'";
 		}
 		
-		String sql = "select * from all5 where (" + str +") ORDER BY dt ASC"; 
+		String sql = "select * from all5 where (" + str +") AND  dt > DATE_ADD(now(), INTERVAL 7 DAY) ORDER BY dt ASC,starttime ASC"; 
 		List<Map<String, Object>> dbList = jdbcTemplate.queryForList(sql);
 		List<All5Dto> list = new ArrayList<>();
 		for (Map<String, Object> db5 : dbList) {
@@ -198,6 +289,74 @@ public class DbRepository {
 		return list;
 	
 	}	
+//	//検索文複数theme。
+	public List<All5Dto> searchBythemeall21(String[] theme) {
+		String str = "";
+		for(int i = 0; i < theme.length; i++)
+		{
+			if(i > 0) {
+				str = str + " or ";
+			}
+		    str = str + "theme='"+theme[i] +"'";
+		}
+		
+		String sql = "select * from all5 where (" + str +") AND (dt > DATE_SUB(now(), INTERVAL 1 DAY) AND dt < DATE_ADD(now(), INTERVAL 7 DAY)) ORDER BY dt ASC,starttime ASC"; 
+		List<Map<String, Object>> dbList = jdbcTemplate.queryForList(sql);
+		List<All5Dto> list3 = new ArrayList<>();
+		for (Map<String, Object> db5 : dbList) {
+			list3.add(new All5Dto(
+					(int) db5.get("id"),
+					(Date) db5.get("dt"),
+					(Time) db5.get("starttime"),
+					(String) db5.get("theme"),
+					(String) db5.get("content"),
+					(String) db5.get("link")
+					));
+		}
+		return list3;
+	
+	}	
+//	//検索文複数theme。
+	public List<All5Dto> searchBythemeall22(String[] theme) {
+		String str = "";
+		for(int i = 0; i < theme.length; i++)
+		{
+			if(i > 0) {
+				str = str + " or ";
+			}
+		    str = str + "theme='"+theme[i] +"'";
+		}
+		
+		String sql = "select * from all5 where (" + str +") AND dt <= DATE_SUB(now(), INTERVAL 1 DAY) ORDER BY dt ASC,starttime ASC"; 
+		List<Map<String, Object>> dbList = jdbcTemplate.queryForList(sql);
+		List<All5Dto> list4 = new ArrayList<>();
+		for (Map<String, Object> db5 : dbList) {
+			list4.add(new All5Dto(
+					(int) db5.get("id"),
+					(Date) db5.get("dt"),
+					(Time) db5.get("starttime"),
+					(String) db5.get("theme"),
+					(String) db5.get("content"),
+					(String) db5.get("link")
+					));
+		}
+		return list4;
+	
+	}	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	
@@ -249,49 +408,6 @@ public class DbRepository {
 	
 	
 	
-	
-//	//INSERT文。
-//	public List<All5Dto> insert1(Date dt,Time starttime,String theme,String content,String link,Model model) {
-////		String sql = "insert into all5(dt,starttime,theme,content,link) values('"+ dt +"','"+starttime+"','"+theme+"','"+content+"','"+link+"'"; 
-//		String sql ="insert into all5(dt,starttime,theme,content,link) values('2022-12-25','15:30','TOEIC','申込み開始','https://www.google.com/')";
-//		List<Map<String, Object>> dbList = jdbcTemplate.queryForList(sql);
-//		List<All5Dto> list = new ArrayList<>();
-//		for (Map<String, Object> db5 : dbList) {
-//			list.add(new All5Dto(
-//					(int) db5.get("id"),
-//					(Date) db5.get("dt"),
-//					(Time) db5.get("starttime"),
-//					(String) db5.get("theme"),
-//					(String) db5.get("content"),
-//					(String) db5.get("link")
-//					));
-//		}
-//		return list;		
-//	
-//	}
-	
-	
-//	//INSERT2。
-//	public List<All5Dto> insert2(Date dt) {
-// 		String sql ="insert into all5(dt) values('2022-12-25')";
-//		jdbcTemplate.queryForList(sql);
-//		String sql1 ="select * from all5";
-//		List<Map<String, Object>> dbList = jdbcTemplate.queryForList(sql1);
-//		
-//		List<All5Dto> list = new ArrayList<>();
-//		for (Map<String, Object> db5 : dbList) {
-//			list.add(new All5Dto(
-//					(int) db5.get("id"),
-//					(Date) db5.get("dt"),
-//					(Time) db5.get("starttime"),
-//					(String) db5.get("theme"),
-//					(String) db5.get("content"),
-//					(String) db5.get("link")
-//					));
-//		}
-//		return list;		
-//	
-//	}
 	
 	//INSERT3
 //	

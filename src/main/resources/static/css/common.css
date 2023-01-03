@@ -8,6 +8,25 @@ body {
 
         
 
+.box {  
+  padding:auto 0;
+  display: table;
+	text-align: center;
+	margin: auto;
+	border-radius: 10px;
+	margin: 0 auto 0 20px;
+  width        : 110px;
+  height       : 50px;  
+  background-color: rgb(255, 162, 162);
+    border:solid 1px rgb(0, 0, 0);
+  /*background   : linear-gradient(to bottom, #99ccff, #0059b3);*/
+  
+}
+.boxspan{	font-weight:700;
+  display: table-cell;
+  vertical-align: middle;
+}
+
 
 .tr1 {
     border-color: gray;
@@ -49,7 +68,7 @@ body {
   padding: 10px 0;
 }
 
-#table3td1,#table3td2{
+#table3td1,#table3td2,#table3td11{
   border-radius: 10px;
   text-align: center;
   padding: 10px 0;
@@ -63,6 +82,20 @@ body {
 	font-family:  "Hiragino Kaku Gothic Pro", Osaka, メイリオ, Meiryo, "ＭＳ Ｐゴシック", "MS PGothic", sans-serif;
 	
 }
+
+#table3td11{
+  background-color: rgb(255, 162, 162);
+  color: rgb(0, 0, 0);
+  border:solid 1px rgb(0, 0, 0);
+	font-size:24px;
+	font-weight:700;
+	font-family:  "Hiragino Kaku Gothic Pro", Osaka, メイリオ, Meiryo, "ＭＳ Ｐゴシック", "MS PGothic", sans-serif;
+	
+}
+
+
+
+
 #table3td2{
   background-color: #e4d4bc;
   border:solid 1px #af9d85;
