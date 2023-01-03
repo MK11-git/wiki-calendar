@@ -18,7 +18,7 @@
 </head>
 
 <body>
-	<h1 id="hh1" href="https://wiki-calendar/">ウィキカレンダー
+	<h1 id="hh1"><a  href="https://wiki-calendar.net/" style="color:inherit;text-decoration: none;">ウィキカレンダー</a>
 	</h1>
 
 
@@ -242,11 +242,19 @@
 
 
 
-	<h2 class="subtitle">テーマ選択</h2>
+	<h2 class="subtitle">カレンダー選択</h2>
 	<div class="hh2">チェックボックスまたは、テキストボックスから選択してください。複数選択可能。</div>
 
 	<form method="get" action="/ca">
 		<div class="inline_box">
+		
+			<div class="select" th:each="continent : ${DbList5}">
+				<input type="checkbox" th:id="${continent}" name="theme" th:value="${continent}" checked>
+				<label th:text="${continent}" th:for="${continent}"></label>
+			</div>
+		
+		
+		
 			<div class="select" th:each="list1 : ${DbList1}">
 				<input type="checkbox" th:id="${list1.theme}" name="theme" th:value="${list1.theme}">
 				<label th:text="${list1.theme}" th:for="${list1.theme}"></label>
@@ -281,7 +289,7 @@
 			<tr class="tr1">
 				<th>日付<a style="color:red;">*</a></th>
 				<th>開始時間</th>
-				<th>テーマ(15文字以内)<a style="color:red;">*</a></th>
+				<th>カレンダー名(15文字以内)<a style="color:red;">*</a></th>
 			</tr>
 			<tr class="tr1">
 				<th><input class="table2th" type="date" name="dt"
@@ -313,7 +321,7 @@
 
 
 		<h2 class="hh21">
-			※日付とテーマは、必須項目です。新規テーマも登録可能です。</h2>
+			※日付とカレンダー名は、必須項目です。新規カレンダー名も登録可能です。</h2>
 		<h2 class="hh21">
 			※Linkを記入する場合は、httpなどから始まり、なるべく一次情報のurlを記載ください。</h2>
 		<p>登録を押すと、登録したテーマの全期間表示に遷移します。</p>
@@ -387,7 +395,7 @@ id：<input type="text" name="id" size="10" />
 			</nobr>
 		</div>
 		<!--*<a class="privacy-policy-link" href="">プライバシーポリシー</a>*/--><a>©2022</a>
-		<a class="site-name" href="https://wiki-calendar/" rel="home">ウィキカレンダー</a>
+		<a class="site-name" href="https://wiki-calendar.net" rel="home">ウィキカレンダー</a>
 		</div>
 	</footer>
 

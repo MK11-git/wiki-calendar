@@ -30,25 +30,33 @@
 					th:text="${list.id}"></a>
 			<br />
 			<br />
-			<a style="font-weight:600;font-size:20px;">テーマ：<input type="hidden" name="theme" th:value="${list.theme}"
+			<a style="font-weight:600;font-size:20px;">カレンダー：<input type="hidden" name="theme" th:value="${list.theme}"
 					th:text="${list.theme}"></a>
 		</div>
 		<br />
 		<br />
 		<table class="table2">
-			<tr>
+			<tr class="tr1">
 				<th>日付*</th>
 				<th>開始時間</th>
-				<th>内容(30文字以内)</th>
-				<th>Link</th>
 			</tr>
-			<tr th:each="list : ${DbList}">
+			<tr  class="tr1" th:each="list : ${DbList}">
 				<th><input class="table2th" type="date" name="dt" th:value="${list.dt}"></th>
 				<th><input class="table2th" type="time" name="starttime" th:value="${list.starttime}"></th>
-				<th><input class="table2th" type="text" name="content" th:value="${list.content}" /></th>
-				<th><input class="table2th" type="text" name="link" th:value="${list.link}" /></th>
 			</tr>
 		</table>
+		
+			<table class="table2">
+				<tr class="tr1">
+					<th>内容(30文字以内)</th>
+					<th>Link</th>
+				</tr>
+				<tr class="tr1" th:each="list : ${DbList}">
+					<th><input class="table2th" type="text" name="content" th:value="${list.content}"></th>
+					<th><input class="table2th" type="text" name="link" th:value="${list.link}"></th>
+				</tr>
+			</table>
+		
 		<input class="submit" type="submit" value="更新" />
 	</form>
 	<p th:each="list : ${DbList}" th:text="${'更新を押すと、　『'+list.theme+'』　の全期間表示に遷移します。'}"></p>
@@ -92,7 +100,7 @@
 				<tr class="tr1">
 					<th>日付<a style="color:red;">*</a></th>
 					<th>開始時間</th>
-					<th>テーマ(15文字以内)<a style="color:red;">*</a></th>
+					<th>カレンダー名(15文字以内)<a style="color:red;">*</a></th>
 				</tr>
 				<tr class="tr1">
 					<th><input class="table2th" type="date" name="dt" th:value="${list.dt}"></th>
@@ -112,12 +120,12 @@
 			</table>
 		</div>
 		<h2 class="hh21">
-			※日付とテーマは、必須項目です。新規テーマも登録可能です。</h2>
+			※日付とカレンダー名は、必須項目です。新規カレンダー名も登録可能です。</h2>
 		<h2 class="hh21">
 			※Linkを記入する場合は、httpなどから始まり、なるべく一次情報のurlを記載ください。</h2>
 		<input class="submit" type="submit" value="登録" />
 	</form>
-	<p>登録を押すと、登録したテーマの全期間表示に遷移します。</p>
+	<p>登録を押すと、登録したカレンダーの全期間表示に遷移します。</p>
 	
 	<br />
 
