@@ -1,6 +1,8 @@
 package com.example.demo;
 
 import java.sql.Date;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,8 +34,44 @@ public class MainController {
 
 		List<All5Dto1> list1 = dbRepository.getAll16();
 		model.addAttribute("DbList1", list1);
+		String[] str = new String[1];
+		str[0] = "未選択";
+		model.addAttribute("continents", str);
+
+		String str3 = "気になるカレンダーを☑チェック、🖊編集してみよう!";
+		model.addAttribute("str3", str3);
+
+		Date test = list3.get(0).getDt();
+		if (test != null) {
+			LocalDate todaydate = LocalDate.now();
+			java.util.Date todayday = localDate2Date(todaydate);
+			int ret = differenceDays(test, todayday);
+			String ret2 = null;
+			if (ret == 0) {
+				ret2 = "▼本日!!";
+			} else {
+				if (ret == 1) {
+					ret2 = "▼明日!";
+				}
+				ret2 = "▼あと" + ret + "日";
+			}
+			model.addAttribute("ret2", ret2);
+		} else {
+		}
 
 		return "test507.html";
+	}
+
+	public static java.util.Date localDate2Date(final LocalDate localDate) {
+		return Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
+	}
+
+	public static int differenceDays(Date date1, java.util.Date todayday) {
+		long datetime1 = date1.getTime();
+		long datetime2 = todayday.getTime();
+		long one_date_time = 1000 * 60 * 60 * 24;
+		long diffDays = (datetime1 - datetime2) / one_date_time;
+		return (int) diffDays;
 	}
 
 	@PostMapping("/")
@@ -47,6 +85,11 @@ public class MainController {
 
 		List<All5Dto1> list1 = dbRepository.getAll16();
 		model.addAttribute("DbList1", list1);
+
+		String[] str = new String[1];
+		str[0] = "未選択";
+		model.addAttribute("continents", str);
+
 		return "test507.html";
 	}
 
@@ -79,6 +122,22 @@ public class MainController {
 		List<String> list5 = new ArrayList<String>();
 		list5.add(theme);
 		model.addAttribute("DbList5", list5);
+
+		String ret2 = null;
+		Date test = list01.get(0).getDt();
+		LocalDate todaydate = LocalDate.now();
+		java.util.Date todayday = localDate2Date(todaydate);
+		int ret = differenceDays(test, todayday);
+		if (ret == 0) {
+			ret2 = "▼本日!!";
+		} else {
+			if (ret == 1) {
+				ret2 = "▼明日!";
+			}
+			ret2 = "▼あと" + ret + "日";
+		}
+
+		model.addAttribute("ret2", ret2);
 
 		return "test507.html";
 	}
@@ -129,7 +188,51 @@ public class MainController {
 		}
 		model.addAttribute("DbList5", list5);
 
-		//		model.addAttribute("str", theme);
+		int num = 0;
+		for (int i = 0; i < theme.length; i++) {
+			if (theme[i] != "") {
+				num = 1;
+			}
+		}
+		
+		
+		String ret2 = null;
+		if (num == 1) {
+			if (list3.size() == 0) {
+				if (list.size() == 0) {
+					ret2 ="本日以降の予定はありません。";
+				} else {
+					Date test = list.get(0).getDt();
+					LocalDate todaydate = LocalDate.now();
+					java.util.Date todayday = localDate2Date(todaydate);
+					int ret = differenceDays(test, todayday);
+					if (ret == 0) {
+						ret2 = "▼本日!!";
+					} else {
+						if (ret == 1) {
+							ret2 = "▼明日!";
+						}
+						ret2 = "▼あと" + ret + "日";
+					}
+				}
+			} else {
+				Date test = list3.get(0).getDt();
+				LocalDate todaydate = LocalDate.now();
+				java.util.Date todayday = localDate2Date(todaydate);
+				int ret = differenceDays(test, todayday);
+				if (ret == 0) {
+					ret2 = "▼本日!!";
+				} else {
+					if (ret == 1) {
+						ret2 = "▼明日!";
+					}
+					ret2 = "▼あと" + ret + "日";
+				}
+			}
+		} else {
+			ret2 = "カレンダーを選択してください";
+		}
+		model.addAttribute("ret2", ret2);
 
 		return "test507.html";
 	}
@@ -182,6 +285,54 @@ public class MainController {
 			}
 		}
 		model.addAttribute("DbList5", list5);
+
+		int num = 0;
+		for (int i = 0; i < theme.length; i++) {
+			if (theme[i] != "") {
+				num = 1;
+			}
+		}
+
+		String ret2 = null;
+		if (num == 1) {
+			if (list3.size() == 0) {
+				if (list.size() == 0) {
+					ret2 ="本日以降の予定はありません。";
+				} else {
+					Date test = list.get(0).getDt();
+					LocalDate todaydate = LocalDate.now();
+					java.util.Date todayday = localDate2Date(todaydate);
+					int ret = differenceDays(test, todayday);
+					if (ret == 0) {
+						ret2 = "▼本日!!";
+					} else {
+						if (ret == 1) {
+							ret2 = "▼明日!";
+						}
+						ret2 = "▼あと" + ret + "日";
+					}
+				}
+
+			} else {
+				Date test = list3.get(0).getDt();
+				LocalDate todaydate = LocalDate.now();
+				java.util.Date todayday = localDate2Date(todaydate);
+				int ret = differenceDays(test, todayday);
+				if (ret == 0) {
+					ret2 = "▼本日!!";
+				} else {
+					if (ret == 1) {
+						ret2 = "▼明日!";
+					}
+					ret2 = "▼あと" + ret + "日";
+				}
+
+			}
+
+		} else {
+			ret2 = "カレンダーを選択してください";
+		}
+		model.addAttribute("ret2", ret2);
 
 		return "test507.html";
 	}
@@ -318,6 +469,22 @@ public class MainController {
 		list5.add(theme);
 		model.addAttribute("DbList5", list5);
 
+		String ret2 = null;
+		Date test = list3.get(0).getDt();
+		LocalDate todaydate = LocalDate.now();
+		java.util.Date todayday = localDate2Date(todaydate);
+		int ret = differenceDays(test, todayday);
+		if (ret == 0) {
+			ret2 = "▼本日!!";
+		} else {
+			if (ret == 1) {
+				ret2 = "▼明日!";
+			}
+			ret2 = "▼あと" + ret + "日";
+		}
+
+		model.addAttribute("ret2", ret2);
+
 		return "test507.html";
 	}
 
@@ -387,7 +554,47 @@ public class MainController {
 		list5.add(theme);
 		model.addAttribute("DbList5", list5);
 
+		String ret2 = null;
+		Date test = list01.get(0).getDt();
+		LocalDate todaydate = LocalDate.now();
+		java.util.Date todayday = localDate2Date(todaydate);
+		int ret = differenceDays(test, todayday);
+		if (ret == 0) {
+			ret2 = "▼本日!!";
+		} else {
+			if (ret == 1) {
+				ret2 = "▼明日!";
+			}
+			ret2 = "▼あと" + ret + "日";
+		}
+
+		model.addAttribute("ret2", ret2);
+
 		//		model.addAttribute("DbList",list);
+
+		return "test507.html";
+	}
+
+	@GetMapping("/checkall")
+	public String write111(Model model) {
+		List<All5Dto> list = dbRepository.getAll111();
+		model.addAttribute("DbList", list);
+
+		List<All5Dto1> list1 = dbRepository.getAll16();
+		model.addAttribute("DbList1", list1);
+		model.addAttribute("DbList17", list1);
+
+		return "test507.html";
+	}
+
+	@GetMapping("/checkallid")
+	public String write111id(Model model) {
+		List<All5Dto> list = dbRepository.getAll111id();
+		model.addAttribute("DbList", list);
+
+		List<All5Dto1> list1 = dbRepository.getAll16();
+		model.addAttribute("DbList1", list1);
+		model.addAttribute("DbList17", list1);
 
 		return "test507.html";
 	}

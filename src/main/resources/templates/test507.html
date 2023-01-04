@@ -67,6 +67,8 @@
 
 
 		<a class="hh23" th:each="continent : ${continents}" th:text="${continent + '　 '}"></a>
+	<br />
+		<a class="hh23" th:each="str3 : ${str3}" th:text="${str3}"  style="color:rgb(255, 128, 0);font-size:1.5em;"></a>
 
 	</div>
 
@@ -164,7 +166,8 @@
 		</tr>
 	</table>
 
-
+<br/>
+		<a class="hh23" th:each="ret2 : ${ret2}" th:text="${ret2}"  style="color:rgb(0, 0, 0);font-size:1.5em;"></a>
 
 	<table id="table3">
 
@@ -242,7 +245,7 @@
 
 
 
-	<h2 class="subtitle">カレンダー選択</h2>
+	<h2 class="subtitle">カレンダー選択☑</h2>
 	<div class="hh2">チェックボックスまたは、テキストボックスから選択してください。複数選択可能。</div>
 
 	<form method="get" action="/ca">
@@ -282,7 +285,7 @@
 	<br />
 	<br />
 	<br />
-	<a class="subtitle">新規登録</a><a style="color:rgb(255, 128, 0);font-size:1.5em;">　どなたでも登録できます!</a>
+	<a class="subtitle">新規登録🖊</a><a style="color:rgb(255, 128, 0);font-size:1.5em;">　どなたでも登録できます!</a>
 	<br /><br />
 	<form action="/i" method="post">
 		<table class="table2">

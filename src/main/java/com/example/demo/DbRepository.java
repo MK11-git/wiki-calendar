@@ -39,6 +39,56 @@ public class DbRepository {
 		}
 		return list;
 	}
+	
+	
+	
+	public List<All5Dto> getAll111() {
+//      long miliseconds = System.currentTimeMillis();
+//      Date date = new Date(miliseconds);
+      
+      
+		String sql = "select id,dt,starttime,theme,content,link from all5 ORDER BY dt ASC,starttime ASC"; //,dt,starttime,theme,content,link
+		List<Map<String, Object>> dbList = jdbcTemplate.queryForList(sql);
+		List<All5Dto> list = new ArrayList<>();
+		for (Map<String, Object> db5 : dbList) {
+			list.add(new All5Dto(
+					(int) db5.get("id"),
+					(Date) db5.get("dt"),
+					(Time) db5.get("starttime"),    //null , 
+//					(SimpleDateFormat) db5.get("starttime"),
+					(String) db5.get("theme"),
+					(String) db5.get("content"),
+					(String) db5.get("link")
+					));
+		}
+		return list;
+	}
+	public List<All5Dto> getAll111id() {
+//      long miliseconds = System.currentTimeMillis();
+//      Date date = new Date(miliseconds);
+      
+      
+		String sql = "select id,dt,starttime,theme,content,link from all5 ORDER BY id DESC"; //,dt,starttime,theme,content,link
+		List<Map<String, Object>> dbList = jdbcTemplate.queryForList(sql);
+		List<All5Dto> list = new ArrayList<>();
+		for (Map<String, Object> db5 : dbList) {
+			list.add(new All5Dto(
+					(int) db5.get("id"),
+					(Date) db5.get("dt"),
+					(Time) db5.get("starttime"),    //null , 
+//					(SimpleDateFormat) db5.get("starttime"),
+					(String) db5.get("theme"),
+					(String) db5.get("content"),
+					(String) db5.get("link")
+					));
+		}
+		return list;
+	}
+	
+	
+	
+	
+	
 	public List<All5Dto> getAll3() {
 //      long miliseconds = System.currentTimeMillis();
 //      Date date = new Date(miliseconds);
