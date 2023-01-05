@@ -22,11 +22,14 @@ public class MainController {
 
 	@GetMapping("/")
 	public String write1(Model model) {
-		List<All5Dto> list = dbRepository.getAll();
-		model.addAttribute("DbList", list);
 
 		List<All5Dto> list3 = dbRepository.getAll3();
 		model.addAttribute("DbList3", list3);
+		
+		
+		List<All5Dto> list = dbRepository.getAll(list3.size());
+		model.addAttribute("DbList", list);
+
 		String strnot = "";
 		strnot = strnot + "theme!=''";
 		List<All5Dto1> list17 = dbRepository.getAll17(strnot);
@@ -41,23 +44,9 @@ public class MainController {
 		String str3 = "気になるカレンダーを☑チェック、🖊編集してみよう!";
 		model.addAttribute("str3", str3);
 
-		Date test = list3.get(0).getDt();
-		if (test != null) {
-			LocalDate todaydate = LocalDate.now();
-			java.util.Date todayday = localDate2Date(todaydate);
-			int ret = differenceDays(test, todayday);
-			String ret2 = null;
-			if (ret == 0) {
-				ret2 = "▼本日!!";
-			} else {
-				if (ret == 1) {
-					ret2 = "▼明日!";
-				}
-				ret2 = "▼あと" + ret + "日";
-			}
-			model.addAttribute("ret2", ret2);
-		} else {
-		}
+		String ret2 = ret2return(list, list3);
+
+		model.addAttribute("ret2", ret2);
 
 		return "test507.html";
 	}
@@ -74,24 +63,73 @@ public class MainController {
 		return (int) diffDays;
 	}
 
-	@PostMapping("/")
-	public String write1post(Model model) {
-		List<All5Dto> list = dbRepository.getAll();
-		model.addAttribute("DbList", list);
-		String strnot = "";
-		strnot = strnot + "theme!=''";
-		List<All5Dto1> list17 = dbRepository.getAll17(strnot);
-		model.addAttribute("DbList17", list17);
+	public static String ret2return(List<All5Dto> list, List<All5Dto> list3) {
 
-		List<All5Dto1> list1 = dbRepository.getAll16();
-		model.addAttribute("DbList1", list1);
+		String ret2 = null;
+		int num = 1;
 
-		String[] str = new String[1];
-		str[0] = "未選択";
-		model.addAttribute("continents", str);
+		if (num == 1) {
+			if (list3.size() == 0) {
+				if (list.size() == 0) {
+					ret2 = "本日以降の予定はありません。";
+				} else {
+					Date listdaymin = list.get(0).getDt();
+					LocalDate todaydate = LocalDate.now();
+					java.util.Date todayday = localDate2Date(todaydate);
+					int ret = differenceDays(listdaymin, todayday);
+					if (ret == 0) {
+						ret2 = "▼本日!!";
+					} else {
+						if (ret == 1) {
+							ret2 = "▼明日!";
+						} else {
+							ret2 = "▼あと" + ret + "日";
+						}
+					}
+				}
+			} else {
+				Date test = list3.get(0).getDt();
+				LocalDate todaydate = LocalDate.now();
+				java.util.Date todayday = localDate2Date(todaydate);
+				int ret = differenceDays(test, todayday);
+				if (ret == 0) {
+					ret2 = "▼本日!!";
+				} else {
+					if (ret == 1) {
+						ret2 = "▼明日!";
+					} else {
+						ret2 = "▼あと" + ret + "日";
+					}
 
-		return "test507.html";
+				}
+
+			}
+
+		} else {
+			ret2 = "カレンダーを選択してください";
+		}
+
+		return ret2;
 	}
+
+//	@PostMapping("/")
+//	public String write1post(Model model) {
+//		List<All5Dto> list = dbRepository.getAll();
+//		model.addAttribute("DbList", list);
+//		String strnot = "";
+//		strnot = strnot + "theme!=''";
+//		List<All5Dto1> list17 = dbRepository.getAll17(strnot);
+//		model.addAttribute("DbList17", list17);
+//
+//		List<All5Dto1> list1 = dbRepository.getAll16();
+//		model.addAttribute("DbList1", list1);
+//
+//		String[] str = new String[1];
+//		str[0] = "未選択";
+//		model.addAttribute("continents", str);
+//
+//		return "test507.html";
+//	}
 
 	//	@GetMapping("/555")
 	//	public String write2(Model model) {
@@ -106,8 +144,8 @@ public class MainController {
 		List<All5Dto> list = dbRepository.searchBythemeall(theme);
 		model.addAttribute("DbList", list);
 
-		List<All5Dto> list01 = dbRepository.searchBythemeall01(theme);
-		model.addAttribute("DbList3", list01);
+		List<All5Dto> list3 = dbRepository.searchBythemeall01(theme);
+		model.addAttribute("DbList3", list3);
 		List<All5Dto> list02 = dbRepository.searchBythemeall02(theme);
 		model.addAttribute("DbList4", list02);
 
@@ -123,19 +161,7 @@ public class MainController {
 		list5.add(theme);
 		model.addAttribute("DbList5", list5);
 
-		String ret2 = null;
-		Date test = list01.get(0).getDt();
-		LocalDate todaydate = LocalDate.now();
-		java.util.Date todayday = localDate2Date(todaydate);
-		int ret = differenceDays(test, todayday);
-		if (ret == 0) {
-			ret2 = "▼本日!!";
-		} else {
-			if (ret == 1) {
-				ret2 = "▼明日!";
-			}
-			ret2 = "▼あと" + ret + "日";
-		}
+		String ret2 = ret2return(list, list3);
 
 		model.addAttribute("ret2", ret2);
 
@@ -188,50 +214,21 @@ public class MainController {
 		}
 		model.addAttribute("DbList5", list5);
 
+		
+		String ret2;
 		int num = 0;
 		for (int i = 0; i < theme.length; i++) {
 			if (theme[i] != "") {
 				num = 1;
 			}
 		}
-		
-		
-		String ret2 = null;
 		if (num == 1) {
-			if (list3.size() == 0) {
-				if (list.size() == 0) {
-					ret2 ="本日以降の予定はありません。";
-				} else {
-					Date test = list.get(0).getDt();
-					LocalDate todaydate = LocalDate.now();
-					java.util.Date todayday = localDate2Date(todaydate);
-					int ret = differenceDays(test, todayday);
-					if (ret == 0) {
-						ret2 = "▼本日!!";
-					} else {
-						if (ret == 1) {
-							ret2 = "▼明日!";
-						}
-						ret2 = "▼あと" + ret + "日";
-					}
-				}
-			} else {
-				Date test = list3.get(0).getDt();
-				LocalDate todaydate = LocalDate.now();
-				java.util.Date todayday = localDate2Date(todaydate);
-				int ret = differenceDays(test, todayday);
-				if (ret == 0) {
-					ret2 = "▼本日!!";
-				} else {
-					if (ret == 1) {
-						ret2 = "▼明日!";
-					}
-					ret2 = "▼あと" + ret + "日";
-				}
-			}
+			ret2 = ret2return(list, list3);
 		} else {
 			ret2 = "カレンダーを選択してください";
 		}
+		
+
 		model.addAttribute("ret2", ret2);
 
 		return "test507.html";
@@ -286,49 +283,15 @@ public class MainController {
 		}
 		model.addAttribute("DbList5", list5);
 
+		String ret2;
 		int num = 0;
 		for (int i = 0; i < theme.length; i++) {
 			if (theme[i] != "") {
 				num = 1;
 			}
 		}
-
-		String ret2 = null;
 		if (num == 1) {
-			if (list3.size() == 0) {
-				if (list.size() == 0) {
-					ret2 ="本日以降の予定はありません。";
-				} else {
-					Date test = list.get(0).getDt();
-					LocalDate todaydate = LocalDate.now();
-					java.util.Date todayday = localDate2Date(todaydate);
-					int ret = differenceDays(test, todayday);
-					if (ret == 0) {
-						ret2 = "▼本日!!";
-					} else {
-						if (ret == 1) {
-							ret2 = "▼明日!";
-						}
-						ret2 = "▼あと" + ret + "日";
-					}
-				}
-
-			} else {
-				Date test = list3.get(0).getDt();
-				LocalDate todaydate = LocalDate.now();
-				java.util.Date todayday = localDate2Date(todaydate);
-				int ret = differenceDays(test, todayday);
-				if (ret == 0) {
-					ret2 = "▼本日!!";
-				} else {
-					if (ret == 1) {
-						ret2 = "▼明日!";
-					}
-					ret2 = "▼あと" + ret + "日";
-				}
-
-			}
-
+			ret2 = ret2return(list, list3);
 		} else {
 			ret2 = "カレンダーを選択してください";
 		}
@@ -469,19 +432,7 @@ public class MainController {
 		list5.add(theme);
 		model.addAttribute("DbList5", list5);
 
-		String ret2 = null;
-		Date test = list3.get(0).getDt();
-		LocalDate todaydate = LocalDate.now();
-		java.util.Date todayday = localDate2Date(todaydate);
-		int ret = differenceDays(test, todayday);
-		if (ret == 0) {
-			ret2 = "▼本日!!";
-		} else {
-			if (ret == 1) {
-				ret2 = "▼明日!";
-			}
-			ret2 = "▼あと" + ret + "日";
-		}
+		String ret2 = ret2return(list, list3);
 
 		model.addAttribute("ret2", ret2);
 
@@ -536,8 +487,8 @@ public class MainController {
 		//		model.addAttribute("DbList",list);
 		List<All5Dto> list = dbRepository.searchBythemeall(theme);
 		model.addAttribute("DbList", list);
-		List<All5Dto> list01 = dbRepository.searchBythemeall01(theme);
-		model.addAttribute("DbList3", list01);
+		List<All5Dto> list3 = dbRepository.searchBythemeall01(theme);
+		model.addAttribute("DbList3", list3);
 		List<All5Dto> list02 = dbRepository.searchBythemeall02(theme);
 		model.addAttribute("DbList4", list02);
 
@@ -554,23 +505,9 @@ public class MainController {
 		list5.add(theme);
 		model.addAttribute("DbList5", list5);
 
-		String ret2 = null;
-		Date test = list01.get(0).getDt();
-		LocalDate todaydate = LocalDate.now();
-		java.util.Date todayday = localDate2Date(todaydate);
-		int ret = differenceDays(test, todayday);
-		if (ret == 0) {
-			ret2 = "▼本日!!";
-		} else {
-			if (ret == 1) {
-				ret2 = "▼明日!";
-			}
-			ret2 = "▼あと" + ret + "日";
-		}
+		String ret2 = ret2return(list, list3);
 
 		model.addAttribute("ret2", ret2);
-
-		//		model.addAttribute("DbList",list);
 
 		return "test507.html";
 	}

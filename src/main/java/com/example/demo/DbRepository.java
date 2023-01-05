@@ -18,12 +18,17 @@ import lombok.RequiredArgsConstructor;
 public class DbRepository {
 	private final JdbcTemplate jdbcTemplate;
 
-	public List<All5Dto> getAll() {
+	public List<All5Dto> getAll(int list3size) {
 //        long miliseconds = System.currentTimeMillis();
 //        Date date = new Date(miliseconds);
+		int num ;
+        if(list3size >30) {
+        	num = 0;
+        }else {
+        	num = 30 - list3size;
+        }
         
-        
-		String sql = "select id,dt,starttime,theme,content,link from all5 WHERE dt >= DATE_ADD(now(), INTERVAL 7 DAY) ORDER BY dt ASC,starttime ASC LIMIT 50"; //,dt,starttime,theme,content,link
+		String sql = "select id,dt,starttime,theme,content,link from all5 WHERE dt >= DATE_ADD(now(), INTERVAL 7 DAY) ORDER BY dt ASC,starttime ASC LIMIT "+num; //,dt,starttime,theme,content,link
 		List<Map<String, Object>> dbList = jdbcTemplate.queryForList(sql);
 		List<All5Dto> list = new ArrayList<>();
 		for (Map<String, Object> db5 : dbList) {
@@ -94,7 +99,7 @@ public class DbRepository {
 //      Date date = new Date(miliseconds);
       
       
-		String sql = "select id,dt,starttime,theme,content,link from all5 WHERE (dt > DATE_SUB(now(), INTERVAL 1 DAY) AND dt < DATE_ADD(now(), INTERVAL 7 DAY)) ORDER BY dt ASC,starttime ASC LIMIT 50"; //,dt,starttime,theme,content,link
+		String sql = "select id,dt,starttime,theme,content,link from all5 WHERE (dt > DATE_SUB(now(), INTERVAL 1 DAY) AND dt < DATE_ADD(now(), INTERVAL 7 DAY)) ORDER BY dt ASC,starttime ASC LIMIT 40"; //,dt,starttime,theme,content,link
 		List<Map<String, Object>> dbList = jdbcTemplate.queryForList(sql);
 		List<All5Dto> list3 = new ArrayList<>();
 		for (Map<String, Object> db5 : dbList) {
@@ -263,7 +268,7 @@ public class DbRepository {
 //        long miliseconds = System.currentTimeMillis();
 //        Date date = new Date(miliseconds);
 		
-		String sql = "select * from all5 where (" + str +") AND dt >= DATE_ADD(now(), INTERVAL 7 DAY) ORDER BY dt ASC,starttime ASC"; 
+		String sql = "select * from all5 where (" + str +") AND dt >= DATE_ADD(now(), INTERVAL 7 DAY) ORDER BY dt ASC,starttime ASC LIMIT 30";
 		List<Map<String, Object>> dbList = jdbcTemplate.queryForList(sql);
 		List<All5Dto> list = new ArrayList<>();
 		for (Map<String, Object> db5 : dbList) {
@@ -293,7 +298,7 @@ public class DbRepository {
 //        long miliseconds = System.currentTimeMillis();
 //        Date date = new Date(miliseconds);
 		
-		String sql = "select * from all5 where (" + str +") AND (dt > DATE_SUB(now(), INTERVAL 1 DAY) AND dt < DATE_ADD(now(), INTERVAL 7 DAY)) ORDER BY dt ASC,starttime ASC"; 
+		String sql = "select * from all5 where (" + str +") AND (dt > DATE_SUB(now(), INTERVAL 1 DAY) AND dt < DATE_ADD(now(), INTERVAL 7 DAY)) ORDER BY dt ASC,starttime ASC LIMIT 30"; 
 		List<Map<String, Object>> dbList = jdbcTemplate.queryForList(sql);
 		List<All5Dto> list3 = new ArrayList<>();
 		for (Map<String, Object> db5 : dbList) {
