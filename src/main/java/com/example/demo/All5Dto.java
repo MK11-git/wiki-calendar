@@ -2,7 +2,6 @@ package com.example.demo;
 
 
 import java.sql.Date;
-import java.sql.Time;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -16,7 +15,7 @@ public class All5Dto {
 //	} 
 	private int id;
     private Date dt;
-    private Time starttime;
+    private String starttime;
     private String theme;
     private String content;
     private String link;

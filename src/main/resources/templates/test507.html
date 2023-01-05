@@ -18,10 +18,10 @@
 </head>
 
 <body>
-	<h1 id="hh1"><a  href="https://wiki-calendar.net/" style="color:inherit;text-decoration: none;">ウィキカレンダー</a>
+	<h1 id="hh1"><a href="https://wiki-calendar.net/" style="color:inherit;text-decoration: none;">ウィキカレンダー</a>
 	</h1>
 
-		<a class="hh23"  th:text="${test5}"  style="color:rgb(0, 0, 0);font-size:1.5em;"></a>
+	<a class="hh23" th:text="${test5}" style="color:rgb(0, 0, 0);font-size:1.5em;"></a>
 
 
 	<!--/*
@@ -68,8 +68,8 @@
 
 
 		<a class="hh23" th:each="continent : ${continents}" th:text="${continent + '　 '}"></a>
-	<br />
-		<a class="hh23" th:each="str3 : ${str3}" th:text="${str3}"  style="color:rgb(255, 128, 0);font-size:1.5em;"></a>
+		<br />
+		<a class="hh23" th:each="str3 : ${str3}" th:text="${str3}" style="color:rgb(255, 128, 0);font-size:1.5em;"></a>
 
 	</div>
 
@@ -90,6 +90,10 @@
 			<input class="submit" type="submit" value="全期間に切替" />
 		</form>
 	</div>
+
+
+
+
 
 	</br>
 
@@ -146,6 +150,16 @@
     </table>*/-->
 
 
+
+	<form name="download" method="get">
+		<div th:each="str : ${DbList5}">
+			<input type="hidden" name="theme" th:value="${str}">
+		</div>
+		<input type="hidden" name="theme" value="">
+		<input type="hidden" name="theme" value="">
+	</form>
+
+
 	<table id="table3">
 
 
@@ -167,8 +181,8 @@
 		</tr>
 	</table>
 
-<br/>
-		<a class="hh23" th:each="ret2 : ${ret2}" th:text="${ret2}"  style="color:rgb(0, 0, 0);font-size:1.5em;"></a>
+	<br />
+	<a class="hh23" th:each="ret2 : ${ret2}" th:text="${ret2}" style="color:rgb(0, 0, 0);font-size:1.5em;"></a>
 
 	<table id="table3">
 
@@ -178,8 +192,7 @@
 			<td noWrap style="max-width: 750px;overflow:hidden;">
 				<a id="theme" th:text="${list.theme}" th:href="@{/ca?theme={theme2}(theme2=${list.theme})}"></a><a>　</a>
 				<a style="color:gray">時間:</a><a style="color:gray" th:text="${list.starttime}"></a><a>～</a><a>　</a>
-				<a style="color:gray">id:</a><a style="color:gray;" th:href="@{/update?id={id2}(id2=${list.id})}"><span
-						th:text="${list.id}"></span></a>
+				<a style="color:gray">id:</a><a style="color:gray;" th:href="@{/update?id={id2}(id2=${list.id})}" ><span th:text="${list.id}"></span></a>
 				<br />
 				<a>　　</a><a style="font-size:25px;color:rgb(2, 0, 70)" th:text="${list.content}"></a>
 				<!--/*<span th:if="${!#lists.isEmpty(list.link)}"></span>th:unless="${!#lists.isEmpty(list.link)*/-->
@@ -251,14 +264,14 @@
 
 	<form method="get" action="/ca">
 		<div class="inline_box">
-		
+
 			<div class="select" th:each="continent : ${DbList5}">
 				<input type="checkbox" th:id="${continent}" name="theme" th:value="${continent}" checked>
 				<label th:text="${continent}" th:for="${continent}"></label>
 			</div>
-		
-		
-		
+
+
+
 			<div class="select" th:each="list1 : ${DbList17}">
 				<input type="checkbox" th:id="${list1.theme}" name="theme" th:value="${list1.theme}">
 				<label th:text="${list1.theme}" th:for="${list1.theme}"></label>

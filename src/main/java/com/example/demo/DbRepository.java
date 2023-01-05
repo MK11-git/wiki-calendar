@@ -28,14 +28,14 @@ public class DbRepository {
         	num = 30 - list3size;
         }
 //        TIME_FORMAT(starttime, '%H:%i')
-		String sql = "select id,dt,starttime,theme,content,link from all5 WHERE dt > ADDTIME(now(),'177:00:00') ORDER BY dt ASC,starttime ASC LIMIT "+num; //,dt,starttime,theme,content,link
+		String sql = "select id,dt,TIME_FORMAT(starttime, '%H:%i'),theme,content,link from all5 WHERE dt > ADDTIME(now(),'177:00:00') ORDER BY dt ASC,starttime ASC LIMIT "+num; //,dt,starttime,theme,content,link
 		List<Map<String, Object>> dbList = jdbcTemplate.queryForList(sql);
 		List<All5Dto> list = new ArrayList<>();
 		for (Map<String, Object> db5 : dbList) {
 			list.add(new All5Dto(
 					(int) db5.get("id"),
 					(Date) db5.get("dt"),
-					(Time) db5.get("starttime"),    //null , 
+					(String) db5.get("TIME_FORMAT(starttime, '%H:%i')"),    //null , 
 //					(SimpleDateFormat) db5.get("starttime"),
 					(String) db5.get("theme"),
 					(String) db5.get("content"),
@@ -90,14 +90,14 @@ public class DbRepository {
 //      Date date = new Date(miliseconds);
       
       
-		String sql = "select id,dt,starttime,theme,content,link from all5 ORDER BY dt ASC,starttime ASC"; //,dt,starttime,theme,content,link
+		String sql = "select id,dt,TIME_FORMAT(starttime, '%H:%i'),theme,content,link from all5 ORDER BY dt ASC,starttime ASC"; //,dt,starttime,theme,content,link
 		List<Map<String, Object>> dbList = jdbcTemplate.queryForList(sql);
 		List<All5Dto> list = new ArrayList<>();
 		for (Map<String, Object> db5 : dbList) {
 			list.add(new All5Dto(
 					(int) db5.get("id"),
 					(Date) db5.get("dt"),
-					(Time) db5.get("starttime"),    //null , 
+					(String) db5.get("TIME_FORMAT(starttime, '%H:%i')"),    //null , 
 //					(SimpleDateFormat) db5.get("starttime"),
 					(String) db5.get("theme"),
 					(String) db5.get("content"),
@@ -111,14 +111,14 @@ public class DbRepository {
 //      Date date = new Date(miliseconds);
       
       
-		String sql = "select id,dt,starttime,theme,content,link from all5 ORDER BY id DESC"; //,dt,starttime,theme,content,link
+		String sql = "select id,dt,TIME_FORMAT(starttime, '%H:%i'),theme,content,link from all5 ORDER BY id DESC"; //,dt,starttime,theme,content,link
 		List<Map<String, Object>> dbList = jdbcTemplate.queryForList(sql);
 		List<All5Dto> list = new ArrayList<>();
 		for (Map<String, Object> db5 : dbList) {
 			list.add(new All5Dto(
 					(int) db5.get("id"),
 					(Date) db5.get("dt"),
-					(Time) db5.get("starttime"),    //null , 
+					(String) db5.get("TIME_FORMAT(starttime, '%H:%i')"),    //null , 
 //					(SimpleDateFormat) db5.get("starttime"),
 					(String) db5.get("theme"),
 					(String) db5.get("content"),
@@ -137,14 +137,14 @@ public class DbRepository {
 //      Date date = new Date(miliseconds);
       
       
-		String sql = "select id,dt,starttime,theme,content,link from all5 WHERE (dt >= SUBTIME(now(), '15:00:00') and dt <= ADDTIME(now(),'177:00:00')) ORDER BY dt ASC,starttime ASC LIMIT 40"; //,dt,starttime,theme,content,link
+		String sql = "select id,dt,TIME_FORMAT(starttime, '%H:%i'),theme,content,link from all5 WHERE (dt >= SUBTIME(now(), '15:00:00') and dt <= ADDTIME(now(),'177:00:00')) ORDER BY dt ASC,starttime ASC LIMIT 40"; //,dt,starttime,theme,content,link
 		List<Map<String, Object>> dbList = jdbcTemplate.queryForList(sql);
 		List<All5Dto> list3 = new ArrayList<>();
 		for (Map<String, Object> db5 : dbList) {
 			list3.add(new All5Dto(
 					(int) db5.get("id"),
 					(Date) db5.get("dt"),
-					(Time) db5.get("starttime"),    //null , 
+					(String) db5.get("TIME_FORMAT(starttime, '%H:%i')"),    //null , 
 //					(SimpleDateFormat) db5.get("starttime"),
 					(String) db5.get("theme"),
 					(String) db5.get("content"),
@@ -185,14 +185,14 @@ public class DbRepository {
 	public List<All5Dto> getAll19() {
         long miliseconds = System.currentTimeMillis();
         Date date = new Date(miliseconds);
-		String sql = "select id,dt,starttime,theme,content,link from all5 WHERE dt >= SUBTIME(now(), '15:00:00') ORDER BY dt ASC"; 
+		String sql = "select id,dt,TIME_FORMAT(starttime, '%H:%i'),theme,content,link from all5 WHERE dt >= SUBTIME(now(), '15:00:00') ORDER BY dt ASC"; 
 		List<Map<String, Object>> dbList = jdbcTemplate.queryForList(sql);
 		List<All5Dto> list = new ArrayList<>();
 		for (Map<String, Object> db5 : dbList) {
 			list.add(new All5Dto(
 					(int) db5.get("id"),
 					(Date) db5.get("dt"),
-					(Time) db5.get("starttime"),    //null , 
+					(String) db5.get("TIME_FORMAT(starttime, '%H:%i')"),    //null , 
 //					(SimpleDateFormat) db5.get("starttime"),
 					(String) db5.get("theme"),
 					(String) db5.get("content"),
@@ -222,14 +222,14 @@ public class DbRepository {
 
 //	//検索文。
 	public List<All5Dto> searchBythemeall(String theme) {
-		String sql = "select * from all5 where theme='" + theme +"' AND dt > ADDTIME(now(),'177:00:00') ORDER BY dt ASC,starttime ASC"; 
+		String sql = "select id,dt,TIME_FORMAT(starttime, '%H:%i'),theme,content,link from all5 where theme='" + theme +"' AND dt > ADDTIME(now(),'177:00:00') ORDER BY dt ASC,starttime ASC"; 
 		List<Map<String, Object>> dbList = jdbcTemplate.queryForList(sql);
 		List<All5Dto> list = new ArrayList<>();
 		for (Map<String, Object> db5 : dbList) {
 			list.add(new All5Dto(
 					(int) db5.get("id"),
 					(Date) db5.get("dt"),
-					(Time) db5.get("starttime"),
+					(String) db5.get("TIME_FORMAT(starttime, '%H:%i')"),
 					(String) db5.get("theme"),
 					(String) db5.get("content"),
 					(String) db5.get("link")
@@ -240,14 +240,14 @@ public class DbRepository {
 	}
 	
 	public List<All5Dto> searchBythemeall01(String theme) {
-		String sql = "select * from all5 where theme='" + theme +"' AND (dt >= SUBTIME(now(), '15:00:00') and dt <= ADDTIME(now(),'177:00:00')) ORDER BY dt ASC,starttime ASC"; 
+		String sql = "select id,dt,TIME_FORMAT(starttime, '%H:%i'),theme,content,link from all5 where theme='" + theme +"' AND (dt >= SUBTIME(now(), '15:00:00') and dt <= ADDTIME(now(),'177:00:00')) ORDER BY dt ASC,starttime ASC"; 
 		List<Map<String, Object>> dbList = jdbcTemplate.queryForList(sql);
 		List<All5Dto> list01 = new ArrayList<>();
 		for (Map<String, Object> db5 : dbList) {
 			list01.add(new All5Dto(
 					(int) db5.get("id"),
 					(Date) db5.get("dt"),
-					(Time) db5.get("starttime"),
+					(String) db5.get("TIME_FORMAT(starttime, '%H:%i')"),
 					(String) db5.get("theme"),
 					(String) db5.get("content"),
 					(String) db5.get("link")
@@ -259,14 +259,14 @@ public class DbRepository {
 	
 	
 	public List<All5Dto> searchBythemeall02(String theme) {
-		String sql = "select * from all5 where theme='" + theme +"' AND dt < SUBTIME(now(), '15:00:00') ORDER BY dt ASC,starttime ASC"; 
+		String sql = "select id,dt,TIME_FORMAT(starttime, '%H:%i'),theme,content,link from all5 where theme='" + theme +"' AND dt < SUBTIME(now(), '15:00:00') ORDER BY dt ASC,starttime ASC"; 
 		List<Map<String, Object>> dbList = jdbcTemplate.queryForList(sql);
 		List<All5Dto> list02 = new ArrayList<>();
 		for (Map<String, Object> db5 : dbList) {
 			list02.add(new All5Dto(
 					(int) db5.get("id"),
 					(Date) db5.get("dt"),
-					(Time) db5.get("starttime"),
+					(String) db5.get("TIME_FORMAT(starttime, '%H:%i')"),
 					(String) db5.get("theme"),
 					(String) db5.get("content"),
 					(String) db5.get("link")
@@ -306,14 +306,14 @@ public class DbRepository {
 //        long miliseconds = System.currentTimeMillis();
 //        Date date = new Date(miliseconds);
 		
-		String sql = "select * from all5 where (" + str +") AND dt > ADDTIME(now(),'177:00:00') ORDER BY dt ASC,starttime ASC LIMIT 30";
+		String sql = "select id,dt,TIME_FORMAT(starttime, '%H:%i'),theme,content,link from all5 where (" + str +") AND dt > ADDTIME(now(),'177:00:00') ORDER BY dt ASC,starttime ASC LIMIT 30";
 		List<Map<String, Object>> dbList = jdbcTemplate.queryForList(sql);
 		List<All5Dto> list = new ArrayList<>();
 		for (Map<String, Object> db5 : dbList) {
 			list.add(new All5Dto(
 					(int) db5.get("id"),
 					(Date) db5.get("dt"),
-					(Time) db5.get("starttime"),
+					(String) db5.get("TIME_FORMAT(starttime, '%H:%i')"),
 					(String) db5.get("theme"),
 					(String) db5.get("content"),
 					(String) db5.get("link")
@@ -336,14 +336,14 @@ public class DbRepository {
 //        long miliseconds = System.currentTimeMillis();
 //        Date date = new Date(miliseconds);
 		
-		String sql = "select * from all5 where (" + str +") AND (dt >= SUBTIME(now(), '15:00:00') and dt <= ADDTIME(now(),'177:00:00')) ORDER BY dt ASC,starttime ASC LIMIT 30"; 
+		String sql = "select id,dt,TIME_FORMAT(starttime, '%H:%i'),theme,content,link from all5 where (" + str +") AND (dt >= SUBTIME(now(), '15:00:00') and dt <= ADDTIME(now(),'177:00:00')) ORDER BY dt ASC,starttime ASC LIMIT 30"; 
 		List<Map<String, Object>> dbList = jdbcTemplate.queryForList(sql);
 		List<All5Dto> list3 = new ArrayList<>();
 		for (Map<String, Object> db5 : dbList) {
 			list3.add(new All5Dto(
 					(int) db5.get("id"),
 					(Date) db5.get("dt"),
-					(Time) db5.get("starttime"),
+					(String) db5.get("TIME_FORMAT(starttime, '%H:%i')"),
 					(String) db5.get("theme"),
 					(String) db5.get("content"),
 					(String) db5.get("link")
@@ -379,14 +379,14 @@ public class DbRepository {
 		    str = str + "theme='"+theme[i] +"'";
 		}
 		
-		String sql = "select * from all5 where (" + str +") AND  dt > ADDTIME(now(),'177:00:00') ORDER BY dt ASC,starttime ASC"; 
+		String sql = "select id,dt,TIME_FORMAT(starttime, '%H:%i'),theme,content,link from all5 where (" + str +") AND  dt > ADDTIME(now(),'177:00:00') ORDER BY dt ASC,starttime ASC"; 
 		List<Map<String, Object>> dbList = jdbcTemplate.queryForList(sql);
 		List<All5Dto> list = new ArrayList<>();
 		for (Map<String, Object> db5 : dbList) {
 			list.add(new All5Dto(
 					(int) db5.get("id"),
 					(Date) db5.get("dt"),
-					(Time) db5.get("starttime"),
+					(String) db5.get("TIME_FORMAT(starttime, '%H:%i')"),
 					(String) db5.get("theme"),
 					(String) db5.get("content"),
 					(String) db5.get("link")
@@ -406,14 +406,14 @@ public class DbRepository {
 		    str = str + "theme='"+theme[i] +"'";
 		}
 		
-		String sql = "select * from all5 where (" + str +") AND (dt >= SUBTIME(now(), '15:00:00') and dt <= ADDTIME(now(),'177:00:00')) ORDER BY dt ASC,starttime ASC"; 
+		String sql = "select id,dt,TIME_FORMAT(starttime, '%H:%i'),theme,content,link from all5 where (" + str +") AND (dt >= SUBTIME(now(), '15:00:00') and dt <= ADDTIME(now(),'177:00:00')) ORDER BY dt ASC,starttime ASC"; 
 		List<Map<String, Object>> dbList = jdbcTemplate.queryForList(sql);
 		List<All5Dto> list3 = new ArrayList<>();
 		for (Map<String, Object> db5 : dbList) {
 			list3.add(new All5Dto(
 					(int) db5.get("id"),
 					(Date) db5.get("dt"),
-					(Time) db5.get("starttime"),
+					(String) db5.get("TIME_FORMAT(starttime, '%H:%i')"),
 					(String) db5.get("theme"),
 					(String) db5.get("content"),
 					(String) db5.get("link")
@@ -433,14 +433,14 @@ public class DbRepository {
 		    str = str + "theme='"+theme[i] +"'";
 		}
 		
-		String sql = "select * from all5 where (" + str +") AND dt < SUBTIME(now(), '15:00:00') ORDER BY dt ASC,starttime ASC"; 
+		String sql = "select id,dt,TIME_FORMAT(starttime, '%H:%i'),theme,content,link from all5 where (" + str +") AND dt < SUBTIME(now(), '15:00:00') ORDER BY dt ASC,starttime ASC"; 
 		List<Map<String, Object>> dbList = jdbcTemplate.queryForList(sql);
 		List<All5Dto> list4 = new ArrayList<>();
 		for (Map<String, Object> db5 : dbList) {
 			list4.add(new All5Dto(
 					(int) db5.get("id"),
 					(Date) db5.get("dt"),
-					(Time) db5.get("starttime"),
+					(String) db5.get("TIME_FORMAT(starttime, '%H:%i')"),
 					(String) db5.get("theme"),
 					(String) db5.get("content"),
 					(String) db5.get("link")
@@ -469,14 +469,14 @@ public class DbRepository {
 	
 //	//検索文。idから検索
 	public List<All5Dto> searchByid(int id) {
-		String sql = "select * from all5 where id=" + id ; 
+		String sql = "select id,dt,TIME_FORMAT(starttime, '%H:%i'),theme,content,link from all5 where id=" + id ; 
 		List<Map<String, Object>> dbList = jdbcTemplate.queryForList(sql);
 		List<All5Dto> list = new ArrayList<>();
 		for (Map<String, Object> db5 : dbList) {
 			list.add(new All5Dto(
 					(int) db5.get("id"),
 					(Date) db5.get("dt"),
-					(Time) db5.get("starttime"),
+					(String) db5.get("TIME_FORMAT(starttime, '%H:%i')"),
 					(String) db5.get("theme"),
 					(String) db5.get("content"),
 					(String) db5.get("link")
@@ -493,14 +493,14 @@ public class DbRepository {
 		jdbcTemplate.queryForList(sql);
         long miliseconds = System.currentTimeMillis();
         Date date = new Date(miliseconds);
-		String sql1 = "select id,dt,starttime,theme,content,link from all5 WHERE dt >= SUBTIME(now(), '15:00:00') ORDER BY dt ASC"; 
+		String sql1 = "select id,dt,TIME_FORMAT(starttime, '%H:%i'),theme,content,link from all5 WHERE dt >= SUBTIME(now(), '15:00:00') ORDER BY dt ASC"; 
 		List<Map<String, Object>> dbList = jdbcTemplate.queryForList(sql1);
 		List<All5Dto> list = new ArrayList<>();
 		for (Map<String, Object> db5 : dbList) {
 			list.add(new All5Dto(
 					(int) db5.get("id"),
 					(Date) db5.get("dt"),
-					(Time) db5.get("starttime"),
+					(String) db5.get("TIME_FORMAT(starttime, '%H:%i')"),
 					(String) db5.get("theme"),
 					(String) db5.get("content"),
 					(String) db5.get("link")
