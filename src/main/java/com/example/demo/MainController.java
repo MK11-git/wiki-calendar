@@ -47,6 +47,12 @@ public class MainController {
 		String ret2 = ret2return(list, list3);
 
 		model.addAttribute("ret2", ret2);
+		
+
+//		LocalDateTime todaydate1 = LocalDateTime.now();
+//
+//		String test5 = "test";
+//		model.addAttribute("test5", todaydate1);
 
 		return "test507.html";
 	}
