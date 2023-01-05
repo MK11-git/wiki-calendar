@@ -47,6 +47,44 @@ public class DbRepository {
 	
 	
 	
+	
+	
+	
+	
+	public List<All5Dtotest> getAlltest(int list3size) {
+//      long miliseconds = System.currentTimeMillis();
+//      Date date = new Date(miliseconds);
+		int num ;
+      if(list3size >30) {
+      	num = 0;
+      }else {
+      	num = 30 - list3size;
+      }
+//      TIME_FORMAT(starttime, '%H:%i')
+		String sql = "select id,dt,TIME_FORMAT(starttime, '%H:%i'),theme,content,link from all5 WHERE dt > ADDTIME(now(),'177:00:00') ORDER BY dt ASC,starttime ASC LIMIT "+num; //,dt,starttime,theme,content,link
+		List<Map<String, Object>> dbList = jdbcTemplate.queryForList(sql);
+		List<All5Dtotest> list = new ArrayList<>();
+		for (Map<String, Object> db5 : dbList) {
+			list.add(new All5Dtotest(
+					(int) db5.get("id"),
+					(Date) db5.get("dt"),
+					(String) db5.get("TIME_FORMAT(starttime, '%H:%i')"),
+					(String) db5.get("theme"),
+					(String) db5.get("content"),
+					(String) db5.get("link")
+					));
+		}
+		return list;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	public List<All5Dto> getAll111() {
 //      long miliseconds = System.currentTimeMillis();
 //      Date date = new Date(miliseconds);

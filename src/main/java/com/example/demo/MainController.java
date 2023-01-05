@@ -56,6 +56,111 @@ public class MainController {
 
 		return "test507.html";
 	}
+	
+	
+	
+	
+	@GetMapping("/test")
+	public String write1test(Model model) {
+
+		List<All5Dto> list3 = dbRepository.getAll3();
+		model.addAttribute("DbList3", list3);
+		
+		
+		List<All5Dtotest> list = dbRepository.getAlltest(list3.size());
+		model.addAttribute("DbList", list);
+
+		String strnot = "";
+		strnot = strnot + "theme!=''";
+		List<All5Dto1> list17 = dbRepository.getAll17(strnot);
+		model.addAttribute("DbList17", list17);
+
+		List<All5Dto1> list1 = dbRepository.getAll16();
+		model.addAttribute("DbList1", list1);
+		String[] str = new String[1];
+		str[0] = "未選択";
+		model.addAttribute("continents", str);
+
+		String str3 = "気になるカレンダーを☑チェック、🖊編集してみよう!";
+		model.addAttribute("str3", str3);
+
+		String ret2 = ret2returntest(list, list3);
+
+		model.addAttribute("ret2", ret2);
+		
+
+//		LocalDateTime todaydate1 = LocalDateTime.now();
+//
+//		String test5 = "test";
+//		model.addAttribute("test5", todaydate1);
+
+		return "test507.html";
+	}
+	
+	
+	
+	
+	
+	public static String ret2returntest(List<All5Dtotest> list, List<All5Dto> list3) {
+
+		String ret2 = null;
+		int num = 1;
+
+		if (num == 1) {
+			if (list3.size() == 0) {
+				if (list.size() == 0) {
+					ret2 = "本日以降の予定はありません。";
+				} else {
+					Date listdaymin = list.get(0).getDt();
+					LocalDate todaydate = LocalDate.now();
+					java.util.Date todayday = localDate2Date(todaydate);
+					int ret = differenceDays(listdaymin, todayday);
+					if (ret == 0) {
+						ret2 = "▼本日!!";
+					} else {
+						if (ret == 1) {
+							ret2 = "▼明日!";
+						} else {
+							ret2 = "▼あと" + ret + "日";
+						}
+					}
+				}
+			} else {
+				Date test = list3.get(0).getDt();
+				LocalDate todaydate = LocalDate.now();
+				java.util.Date todayday = localDate2Date(todaydate);
+				int ret = differenceDays(test, todayday);
+				if (ret == 0) {
+					ret2 = "▼本日!!";
+				} else {
+					if (ret == 1) {
+						ret2 = "▼明日!";
+					} else {
+						ret2 = "▼あと" + ret + "日";
+					}
+
+				}
+
+			}
+
+		} else {
+			ret2 = "カレンダーを選択してください";
+		}
+
+		return ret2;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 	public static java.util.Date localDate2Date(final LocalDate localDate) {
 		return Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
